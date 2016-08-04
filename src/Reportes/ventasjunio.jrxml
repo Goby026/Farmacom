@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e1ab9d93-75d6-44b8-8203-c52afdf32c6d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT tproducto_medicamento.nom_pro_medi, `fecha_venta`, `hora_venta`, tdetalleventa.cantidad, tproducto_medicamento.prec_venta, tdetalleventa.sub_total  FROM `tventa` INNER JOIN tdetalleventa on tventa.id_venta = tdetalleventa.id_venta INNER JOIN tproducto_medicamento on tdetalleventa.id_pro_medi = tproducto_medicamento.id_pro_medi INNER JOIN tusuario on tventa.id_usu = tusuario.id_usu WHERE tventa.fecha_venta BETWEEN CONCAT(YEAR(NOW()),'-6-1') AND CONCAT(YEAR(NOW()),'-6-31')]]>
+	</queryString>
+	<field name="nom_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_venta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_venta" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prec_venta" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub_total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="fecha_venta">
+		<groupExpression><![CDATA[$F{fecha_venta}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="555" height="41" uuid="ffd6257a-0911-4d4f-9d60-32665932d136"/>
+				<textElement textAlignment="Right">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENTAS JUNIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="47" width="112" height="32" forecolor="#0000CC" uuid="84d2edb4-b43f-4dda-a145-cef4f41426df"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[FARMACOM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="20" uuid="9c3879f0-d522-4413-9476-33a009489a03"/>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="92" height="20" uuid="e7d6ee99-6772-4d22-9a38-d17d41d68218"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="92" height="20" uuid="81afc33f-226c-49c9-b8b3-e5f862140e74"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="92" height="20" uuid="6254fcc4-4fa6-48d0-badb-4e7a02a844da"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="20" uuid="48835a56-6cb7-4ad9-9e76-82cdd64ad029"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="92" height="20" uuid="5cb9f69f-3106-4117-9137-a9ab9589403e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="20" uuid="6b95d6ea-b279-4571-b6a0-fc64c7b2b63d"/>
+				<textFieldExpression><![CDATA[$F{nom_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="92" height="20" uuid="5007e0f6-ccda-4db4-9d2a-db7a65728861"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="92" height="20" uuid="cb08dade-da8c-4424-9820-1f807d1497e2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{hora_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="92" height="20" uuid="e8a2aa42-7f6d-47dc-b213-5eb328307f29"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" uuid="98659ff4-3c50-411e-90fb-0d88215151d2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prec_venta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="92" height="20" uuid="b8b62dc6-d12a-4dd3-8870-c7f1bbd54d2a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

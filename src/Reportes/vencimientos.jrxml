@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4da1dd45-db20-4676-8c5b-5abe9b902947">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dias" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT `id_pro_medi`, `nom_pro_medi`,`concentracion_pro_medi`, `presentacion_pro_medi`, `provee_labo_pro_medi`,`fec_ingreso_prod` ,`fecha_venc_pro_medi`, `stock_pro_medi` FROM tproducto_medicamento WHERE TIMESTAMPDIFF(DAY,CURDATE(),`fecha_venc_pro_medi`)<= $P{dias}]]>
+	</queryString>
+	<field name="id_pro_medi" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="concentracion_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="presentacion_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="provee_labo_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fec_ingreso_prod" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_venc_pro_medi" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stock_pro_medi" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="fecha_venc_pro_medi">
+		<groupExpression><![CDATA[$F{fecha_venc_pro_medi}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="0f4bb41a-ab74-4f57-9421-27f0d25e0463"/>
+				<textElement textAlignment="Right">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENCIMIENTOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="40" width="123" height="23" forecolor="#0033CC" uuid="938233a2-c26b-4e1d-acd0-e9aff0406274"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FARMACOM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="18" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="47" height="20" uuid="5b57e60c-69f0-47b2-a5cc-41662aeb3d24"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="0" width="91" height="20" uuid="eeb3c740-1886-4ed9-b03b-d7510618a43c"/>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="0" width="69" height="20" uuid="61c50969-5fd7-4d62-b4e9-a4719ce34aec"/>
+				<text><![CDATA[CONCENT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="0" width="69" height="20" uuid="ad9562f5-609d-4a1f-9d5b-f7aeb31b13b7"/>
+				<text><![CDATA[PRESENTAC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="69" height="20" uuid="2ce9ccb5-596d-4082-ab90-2945b43dd6d0"/>
+				<text><![CDATA[PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="0" width="69" height="20" uuid="bf088826-4dcf-4979-ad87-0c6624e83633"/>
+				<text><![CDATA[FEC. ING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="69" height="20" uuid="a641e5b9-2f38-4b0b-8d4d-14f7a1d7f293"/>
+				<text><![CDATA[FEC. VENC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="0" width="69" height="20" uuid="d6a33641-c3d5-48f5-9250-df51e1718012"/>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="47" height="20" uuid="1b5cf1f4-2df4-494f-9239-17230b4e1787"/>
+				<textFieldExpression><![CDATA[$F{id_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="0" width="91" height="20" uuid="9b704713-c999-4925-a48e-b3d0f7c26c16"/>
+				<textFieldExpression><![CDATA[$F{nom_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="69" height="20" uuid="569bc1cf-0770-45b3-bfaa-595ceb38dc77"/>
+				<textFieldExpression><![CDATA[$F{concentracion_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="69" height="20" uuid="a6df00b7-b369-4a20-a57d-9d6596158d12"/>
+				<textFieldExpression><![CDATA[$F{presentacion_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="69" height="20" uuid="5d10315c-c9f4-4171-93b1-d0beeaeabb55"/>
+				<textFieldExpression><![CDATA[$F{provee_labo_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="0" width="69" height="20" uuid="514b719d-c488-49ab-a7fe-8c00fed7992a"/>
+				<textFieldExpression><![CDATA[$F{fec_ingreso_prod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="69" height="20" uuid="af56667f-ab04-473f-8107-8f1585f2e143"/>
+				<textFieldExpression><![CDATA[$F{fecha_venc_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="0" width="69" height="20" uuid="61998e86-1094-4698-935d-e90aa90309a5"/>
+				<textFieldExpression><![CDATA[$F{stock_pro_medi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

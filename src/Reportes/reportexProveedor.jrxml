@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0c7c36c-7755-484f-ac34-10d16443fec2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_compra" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomProveedor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tproducto_medicamento.nom_pro_medi,tcompras.fecha_compra,tcompras.hora_compra,tdetalle_compra.precio, tdetalle_compra.cantidad,tdetalle_compra.sub_total, tcompras.tipo_doc FROM `tcompras` INNER JOIN tdetalle_compra on tcompras.id_compra = tdetalle_compra.id_compra INNER JOIN tproducto_medicamento on tdetalle_compra.id_pro_medi = tproducto_medicamento.id_pro_medi WHERE tcompras.id_compra = $P{id_compra}]]>
+	</queryString>
+	<field name="nom_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_compra" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_compra" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub_total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_doc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="238" y="43" width="113" height="27" forecolor="#003399" uuid="58120132-2816-41b6-9d4d-ef30a3460dbc"/>
+				<textElement>
+					<font size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FARMACOM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="33" uuid="702acf6a-f87f-4851-84af-3b0e55918fb0"/>
+				<textElement textAlignment="Right">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPRAS POR PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="77" height="20" uuid="45bbdf8e-0d0c-4c69-8be3-b90500a8e2a4"/>
+				<text><![CDATA[PROVEEDOR :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="77" y="60" width="100" height="20" uuid="0153bee1-058e-427a-ba48-233993a423d3"/>
+				<textFieldExpression><![CDATA[$P{nomProveedor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e127e0a8-d26b-43e8-8579-ecc883b5d0fb"/>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="79c60b3e-1eba-4b25-a84e-f5caaed672d9"/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="49" height="20" uuid="097bc3ca-3482-4498-92ee-a294abe94f0f"/>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="0" width="53" height="20" uuid="4e9cc433-8979-49ab-acf9-22b4e855d14c"/>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="63" height="20" uuid="83ecd2f9-e066-4a76-bc64-bf6e3f073754"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="0" width="79" height="20" uuid="70be31e7-d2d8-4fe8-9665-34b756a3284a"/>
+				<text><![CDATA[SUB-TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="0" width="78" height="20" uuid="75184cd6-ab61-459c-a72e-2febbb8085b7"/>
+				<text><![CDATA[DOCUMENTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="ec65c7ad-279f-4b02-8845-b85bf9e1b840"/>
+				<textFieldExpression><![CDATA[$F{nom_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="bca5a356-cdc5-43b4-89e1-64c8f098ee81"/>
+				<textFieldExpression><![CDATA[$F{fecha_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="49" height="20" uuid="7dce4716-b79e-4fb1-af33-0f9fb2a13a37"/>
+				<textFieldExpression><![CDATA[$F{hora_compra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="0" width="53" height="20" uuid="944a0f05-9fd5-4473-8f09-0ec1f26824f1"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="63" height="20" uuid="3d352284-e122-4cd9-8481-438f54f17efc"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="0" width="79" height="20" uuid="c8993cbb-7aff-4d85-a691-4453baa6492b"/>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="78" height="20" uuid="6603caef-4e62-47f9-a697-7367bfc57273"/>
+				<textFieldExpression><![CDATA[$F{tipo_doc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

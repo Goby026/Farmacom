@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a73dd4c-7767-44ff-a532-f50bd861f2e6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT `nom_provee`, `ruc_provee`, `telf_provee`, `dir_provee`, `email_provee` FROM `tproveedor`]]>
+	</queryString>
+	<field name="nom_provee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ruc_provee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telf_provee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dir_provee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email_provee" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="555" height="35" uuid="9ba74d5d-1cfc-4fa9-b7cc-014058654633"/>
+				<textElement textAlignment="Right">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE PROVEEDORES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="42" width="123" height="26" forecolor="#0033CC" uuid="51b61431-e8ca-4f23-aed3-b92762629a96"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[FARMACOM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="77cb0a18-8d85-463f-9f8e-29c7b03dbdd1"/>
+				<text><![CDATA[PROVEEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="02839a85-aabe-4137-b891-1dc1b15983f4"/>
+				<text><![CDATA[RUC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="20" uuid="0db5a6d7-2406-44fc-8bb5-5e257d5febea"/>
+				<text><![CDATA[TELEFONO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="100" height="20" uuid="f24df116-eddb-49f1-8181-267827393bf6"/>
+				<text><![CDATA[DIRECCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="100" height="20" uuid="75ed8739-ee57-48ba-813e-0a67fdb65f9a"/>
+				<text><![CDATA[E-MAIL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="f60cfbde-5320-4dde-91c5-ff61ca4306ab"/>
+				<textFieldExpression><![CDATA[$F{nom_provee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="8fa3fdd4-1b66-4153-b4d8-d4c9ffbdc902"/>
+				<textFieldExpression><![CDATA[$F{ruc_provee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="376daa26-0852-4b4c-9007-47f7de9659ab"/>
+				<textFieldExpression><![CDATA[$F{telf_provee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="976ff6d0-d4c7-48b9-8e99-7a208c0e3b15"/>
+				<textFieldExpression><![CDATA[$F{dir_provee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="20" uuid="e7dbbba2-e806-405b-bf3e-a56ab1f87e24"/>
+				<textFieldExpression><![CDATA[$F{email_provee}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
