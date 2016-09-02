@@ -453,7 +453,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/IMG/1453243072_cash_register.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="GASTOS"/>
+                <Property name="text" type="java.lang.String" value="COMPRAS"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem23">
@@ -461,8 +461,11 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/IMG/1453289091_money.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="GASTOS POR FECHA"/>
+                    <Property name="text" type="java.lang.String" value="REPORTE DE COMPRAS"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem23ActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -718,7 +721,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/IMG/1453296051_09.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TIENDAS"/>
+            <Property name="text" type="java.lang.String" value="LABORATORIOS"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>

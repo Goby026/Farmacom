@@ -40,7 +40,7 @@ public final class Compras extends javax.swing.JFrame {
     Connection con = new Conexion().conectar();
 
     public Compras() {
-        setUndecorated(true);
+        //setUndecorated(true);
         setAlwaysOnTop(true);
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
@@ -56,6 +56,14 @@ public final class Compras extends javax.swing.JFrame {
         String cabeza[] = {"CÓDIGO", "NOMBRE", "CANT.", "PRECIO COMPRA", "SUB-TOTAL", "STOCK ACTUAL", "% UTILIDAD", "PREC. UNIDAD"};
         model_produc_add = new DefaultTableModel(null, cabeza);
         tbl_productos_agregados.setModel(model_produc_add);
+        tbl_productos_agregados.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_productos_agregados.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tbl_productos_agregados.getColumnModel().getColumn(7).setPreferredWidth(50);
         lbl_pie.setText(new Farma_inf().pie());
     }
 
@@ -118,13 +126,13 @@ public final class Compras extends javax.swing.JFrame {
     }
 
     public void cargarFormProductos() {
-        String titulos[] = {"CÓDIGO", "NOMBRE", "CONCENTRACIÓN", "PRESENTACIÓN", "FRACCIÓN", "STOCK"};
+        String titulos[] = {"CÓDIGO", "NOMBRE", "CONCENTRACIÓN", "PRESENTACIÓN", "LABORATORIO","PRECIO", "P. BLISTER", "STOCK"};
         model_produc = new DefaultTableModel(null, titulos);
-        tbl_buscar_prod.setModel(model_produc);
+        //tbl_buscar_prod.setModel(model_produc);
 
-        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`, `fraccion_pro_medi`, `stock_pro_medi` FROM `tproducto_medicamento`";
+        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`, `proveedor`,`prec_venta`,`precio_blister`, `stock_pro_medi` FROM `tproducto_medicamento`";
         try {
-            String datos[] = new String[6];
+            String datos[] = new String[8];
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -132,11 +140,21 @@ public final class Compras extends javax.swing.JFrame {
                 datos[1] = rs.getString("nom_pro_medi");
                 datos[2] = rs.getString("concentracion_pro_medi");
                 datos[3] = rs.getString("presentacion_pro_medi");
-                datos[4] = rs.getString("fraccion_pro_medi");
-                datos[5] = rs.getString("stock_pro_medi");
+                datos[4] = rs.getString("proveedor");
+                datos[5] = rs.getString("prec_venta");
+                datos[6] = rs.getString("precio_blister");
+                datos[7] = rs.getString("stock_pro_medi");
                 model_produc.addRow(datos);
                 tbl_buscar_prod.setModel(model_produc);
             }
+            tbl_buscar_prod.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbl_buscar_prod.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tbl_buscar_prod.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tbl_buscar_prod.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tbl_buscar_prod.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tbl_buscar_prod.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tbl_buscar_prod.getColumnModel().getColumn(6).setPreferredWidth(50);
+            tbl_buscar_prod.getColumnModel().getColumn(7).setPreferredWidth(50);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -145,8 +163,8 @@ public final class Compras extends javax.swing.JFrame {
     public void buscarProductos() {
         limpiarTabla();
         String art = txt_buscar_prod.getText();
-        String datos[] = new String[6];
-        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`, `fraccion_pro_medi`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
+        String datos[] = new String[8];
+        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`, `proveedor`,`prec_venta`,`precio_blister`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -155,8 +173,10 @@ public final class Compras extends javax.swing.JFrame {
                 datos[1] = rs.getString("nom_pro_medi");
                 datos[2] = rs.getString("concentracion_pro_medi");
                 datos[3] = rs.getString("presentacion_pro_medi");
-                datos[4] = rs.getString("fraccion_pro_medi");
-                datos[5] = rs.getString("stock_pro_medi");
+                datos[4] = rs.getString("proveedor");
+                datos[5] = rs.getString("prec_venta");
+                datos[6] = rs.getString("precio_blister");
+                datos[7] = rs.getString("stock_pro_medi");
                 model_produc.addRow(datos);
                 tbl_buscar_prod.setModel(model_produc);
             }
@@ -169,13 +189,17 @@ public final class Compras extends javax.swing.JFrame {
     public void getProducto(int fila) {
         int cod_prod = Integer.parseInt(tbl_buscar_prod.getValueAt(fila, 0).toString());
         String nom_prod = tbl_buscar_prod.getValueAt(fila, 1).toString();
-        String stock_prod = tbl_buscar_prod.getValueAt(fila, 5).toString();
+        String labo = tbl_buscar_prod.getValueAt(fila, 4).toString();
+        String precio = tbl_buscar_prod.getValueAt(fila, 5).toString();
+        String stock_prod = tbl_buscar_prod.getValueAt(fila, 7).toString();
         txtPresentacion.setText(new Farma_inf().getPresentacionProducto(cod_prod));
         txtLote.setText(new Farma_inf().getLoteProducto(cod_prod));
         txtFecVenc.setText(new Farma_inf().getFechaVencimientoProducto(cod_prod));
         txt_codigo.setText("" + cod_prod);
         txt_nom_prod.setText(nom_prod);
         txt_stock.setText(stock_prod);
+        txtPrecio.setText(precio);
+        txtLaboratorio.setText(labo);
     }
 
     public void addProducto(int cod) {
@@ -231,6 +255,8 @@ public final class Compras extends javax.swing.JFrame {
         txtPresentacion.setText("");
         txtLote.setText("");
         txtFecVenc.setText("");
+        txtPrecio.setText("");
+        txtLaboratorio.setText("");
     }
 
     public void contarAdd() {
@@ -290,7 +316,6 @@ public final class Compras extends javax.swing.JFrame {
         btn_agregar_prod = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbl_buscar_prod = new javax.swing.JTable();
-        jSeparator6 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         lbl_salir = new javax.swing.JLabel();
         lbl_logo1 = new javax.swing.JLabel();
@@ -364,8 +389,13 @@ public final class Compras extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
+        txtPrecio = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        txtLaboratorio = new javax.swing.JTextField();
 
         frm_buscar_provee.setBounds(new java.awt.Rectangle(600, 50, 555, 535));
+        frm_buscar_provee.setResizable(false);
         frm_buscar_provee.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Banner.png"))); // NOI18N
@@ -449,12 +479,13 @@ public final class Compras extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 102, 255));
         frm_buscar_provee.getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 540, 20));
 
-        frm_buscar_prod.setBounds(new java.awt.Rectangle(200, 50, 740, 500));
+        frm_buscar_prod.setBounds(new java.awt.Rectangle(200, 50, 860, 500));
+        frm_buscar_prod.setResizable(false);
         frm_buscar_prod.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Banner.png"))); // NOI18N
         jLabel28.setText("jLabel27");
-        frm_buscar_prod.getContentPane().add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 60));
+        frm_buscar_prod.getContentPane().add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 60));
 
         txt_buscar_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,14 +528,14 @@ public final class Compras extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tbl_buscar_prod);
 
-        frm_buscar_prod.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 730, 330));
-        frm_buscar_prod.getContentPane().add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 510, 10));
+        frm_buscar_prod.getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 850, 330));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setText("BUSCAR");
         frm_buscar_prod.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_salir.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -901,6 +932,7 @@ public final class Compras extends javax.swing.JFrame {
         txt_total.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jPanel2.add(txt_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 660, 120, -1));
 
+        txtUtilidad.setEditable(false);
         txtUtilidad.setBackground(new java.awt.Color(255, 102, 0));
         txtUtilidad.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
         txtUtilidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -980,8 +1012,8 @@ public final class Compras extends javax.swing.JFrame {
 
         jLabel35.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel35.setText("LOTE");
-        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+        jLabel35.setText("LABORATORIO");
+        jPanel2.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, -1, -1));
 
         txtLote.setEditable(false);
         txtLote.setBackground(new java.awt.Color(255, 255, 153));
@@ -1006,13 +1038,39 @@ public final class Compras extends javax.swing.JFrame {
         jLabel36.setText("PRECIO VENTA");
         jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, -1, -1));
 
-        jButton4.setText("REPORTE DE COMPRAS");
+        jButton4.setText("HISTORIAL DE COMPRAS");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 610, 230, -1));
+
+        jLabel37.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel37.setText("LOTE");
+        jPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, -1, -1));
+
+        txtPrecio.setEditable(false);
+        txtPrecio.setBackground(new java.awt.Color(255, 255, 153));
+        txtPrecio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtPrecio.setForeground(new java.awt.Color(0, 51, 255));
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrecio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
+        jPanel2.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 50, -1));
+
+        jLabel38.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel38.setText("PRECIO");
+        jPanel2.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
+
+        txtLaboratorio.setEditable(false);
+        txtLaboratorio.setBackground(new java.awt.Color(255, 255, 153));
+        txtLaboratorio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtLaboratorio.setForeground(new java.awt.Color(0, 51, 255));
+        txtLaboratorio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLaboratorio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
+        jPanel2.add(txtLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 170, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 860, 790));
 
@@ -1051,6 +1109,7 @@ public final class Compras extends javax.swing.JFrame {
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         frm_buscar_prod.setVisible(true);
         frm_buscar_prod.setAlwaysOnTop(true);
+        txt_buscar_prod.setText("");
         cargarFormProductos();
     }//GEN-LAST:event_btn_buscarActionPerformed
 
@@ -1145,10 +1204,10 @@ public final class Compras extends javax.swing.JFrame {
         int fila = tbl_productos_agregados.getSelectedRow();
         if (fila >= 0) {
             model_produc_add.removeRow(fila);
+            calculos();
         } else {
-            JOptionPane.showMessageDialog(getRootPane(), "SELECCIONES UN PRODUCTO EN LA TABLA");
+            JOptionPane.showMessageDialog(getRootPane(), "SELECCIONE UN PRODUCTO A QUITAR");
         }
-
     }//GEN-LAST:event_btn_quitarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1239,6 +1298,7 @@ public final class Compras extends javax.swing.JFrame {
                     double resta = precioIngresado - precioBruto;
                     double porcentaje = new Farma_inf().Redondear((resta * 100) / precioBruto);
                     txtUtilidad.setText("" + porcentaje);
+                    txtUtilidad.requestFocus();
                 } else {
                     JOptionPane.showMessageDialog(getRootPane(), "INGRESE PORCENTAJE DE UTILIDAD");
                 }
@@ -1248,6 +1308,7 @@ public final class Compras extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE PRECIO DE COMPRA");
         }
+        
     }//GEN-LAST:event_txtPrecVentaUnidadActionPerformed
 
     private void txt_cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cantidadActionPerformed
@@ -1300,11 +1361,8 @@ public final class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // select tproducto_medicamento.nom_pro_medi, tcompras.fecha_compra, tcompras.hora_compra, tdetalle_compra.cantidad, tdetalle_compra.precio, tdetalle_compra.sub_total
-//from tcompras
-//inner join tdetalle_compra on tcompras.id_compra = tdetalle_compra.id_compra
-//inner join tproducto_medicamento on tdetalle_compra.id_pro_medi = tproducto_medicamento.id_pro_medi
-//where tcompras.fecha_compra = '2016-06-16';
+        this.dispose();
+        new ReporteDeCompras().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -1386,6 +1444,8 @@ public final class Compras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1401,7 +1461,6 @@ public final class Compras extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator6;
     private com.toedter.calendar.JDateChooser jdc_fecha;
     private javax.swing.JLabel lbl_fecha;
     private javax.swing.JLabel lbl_igv;
@@ -1414,8 +1473,10 @@ public final class Compras extends javax.swing.JFrame {
     private javax.swing.JTable tbl_provee;
     private javax.swing.JTextField txtBuscarProveedor;
     private javax.swing.JTextField txtFecVenc;
+    private javax.swing.JTextField txtLaboratorio;
     private javax.swing.JTextField txtLote;
     private javax.swing.JTextField txtPrecVentaUnidad;
+    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtPresentacion;
     private javax.swing.JTextField txtUtilidad;
     private javax.swing.JTextField txt_buscar_prod;

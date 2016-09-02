@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="11499fa6-7a6a-43a4-93f4-d35dc895ce67">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numCompra" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="doc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fec" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="provee" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tdetalle_compra.id, tproducto_medicamento.id_pro_medi, tproducto_medicamento.nom_pro_medi, tdetalle_compra.cantidad, tdetalle_compra.precio, tdetalle_compra.sub_total FROM tcompras INNER JOIN tdetalle_compra ON tcompras.id_compra = tdetalle_compra.id_compra INNER JOIN tproducto_medicamento ON tproducto_medicamento.id_pro_medi = tdetalle_compra.id_pro_medi WHERE tcompras.id_compra=$P{id};]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_pro_medi" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom_pro_medi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sub_total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="367" y="0" width="185" height="38" uuid="29c5c387-ae6b-4b83-9d1c-0c5470868486"/>
+				<textElement>
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[FARMACOM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="184" height="19" forecolor="#003399" uuid="ce4b6351-41d2-4a3a-a8f5-78a7bba2bd86"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE COMPRAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="203" y="0" width="96" height="13" uuid="c59ae0e7-25fc-4f83-aa9c-1690179b452f"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[FECHA DE COMPRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="132" height="13" uuid="da2393e5-22a9-4e03-a4dc-fb43760b49b0"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO DE COMPRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="13" width="96" height="13" uuid="56ce5d48-2f81-460e-9b75-a10b2d1fe266"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[HORA DE COMPRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="132" height="13" uuid="3e3d8df7-ce55-45f2-8b99-249c09df2be8"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[NUMERO DE COMPRA:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="29" width="552" height="1" uuid="d8e03576-e17a-4b7b-bf3d-e7b6851af896"/>
+			</line>
+			<staticText>
+				<reportElement x="368" y="0" width="63" height="13" uuid="1e0f7bc6-f376-4dbd-9c04-e3506bfebfdb"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[PROVEEDOR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="132" y="0" width="71" height="13" forecolor="#660000" uuid="8d9908dd-838c-4bd2-ac31-e0b517ae909d"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="13" width="71" height="13" forecolor="#660000" uuid="89919c08-5900-4d23-a4fe-298061ce93ac"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{doc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="69" height="13" forecolor="#660000" uuid="17f0060c-8ca5-4b0e-a90a-b5db1846f0cf"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="13" width="69" height="13" forecolor="#660000" uuid="74988704-40e9-4868-8b08-135ce4fb592f"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="0" width="121" height="13" forecolor="#660000" uuid="8f6b7da5-1bd2-460a-a317-3740d93c24eb"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{provee}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="92" height="13" uuid="339c92f4-4bb4-4635-9074-ca76e66bb478"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. VENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="92" height="13" uuid="dd549b23-c439-422b-85f3-daba43e4e37a"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[COD. PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="92" height="13" uuid="2c0fcbad-5435-419e-9f8a-81f6b23dcb5b"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOM. PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="92" height="13" uuid="e22498f3-3a97-4a33-a600-bce844a15bbd"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="13" uuid="581f9181-4ef0-40e2-91d9-c67261504443"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="92" height="13" uuid="cb257118-96d1-4894-ae61-391cd00ea789"/>
+				<textElement textAlignment="Left">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="92" height="20" forecolor="#003366" uuid="47106962-6426-4016-886a-4eb3bf2f7423"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="0" width="92" height="20" forecolor="#003366" uuid="645b971b-e9aa-4a3d-a5d0-0d6bba9c9410"/>
+				<textFieldExpression><![CDATA[$F{id_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="92" height="20" forecolor="#003366" uuid="67b40aa5-c98d-46d8-90eb-95f53a67d995"/>
+				<textFieldExpression><![CDATA[$F{nom_pro_medi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="92" height="20" forecolor="#003366" uuid="c46590e5-2768-4c98-9938-b2cb0813db93"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" forecolor="#003366" uuid="b3f890d1-eddf-49c5-83cf-fd46b9e3dbef"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="92" height="20" forecolor="#003366" uuid="7e78b730-b821-49f1-8e73-4c085904314f"/>
+				<textFieldExpression><![CDATA[$F{sub_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="552" height="12" forecolor="#666666" uuid="1098bf67-8364-4c10-aef4-1971c67dcd39"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Sistema Farmacom desarrollado por  IDSOFT.SAC@GMAIL.COM]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="377" y="0" width="54" height="20" uuid="c0178324-79a7-4fc8-a2c3-bf59f6f6d8e0"/>
+				<text><![CDATA[TOTAL: S/.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="431" y="0" width="121" height="52" uuid="cb99707d-b1d6-461c-9702-41fe086159d8"/>
+				<textElement>
+					<font size="25" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

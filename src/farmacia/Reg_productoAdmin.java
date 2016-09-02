@@ -7,6 +7,8 @@ package farmacia;
 import Control.Conexion;
 import Control.ManejadorFechas;
 import Vista.Farma_inf;
+import Vista.Laboratorio;
+import Vista.LaboratorioDAO;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.MouseInfo;
@@ -18,6 +20,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.codehaus.groovy.runtime.DefaultGroovyMethods;
@@ -53,18 +58,18 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
     }
     
     public void cargarTituloTabla1() {
-        String[] cabecera1 = {"ID", "CODIGO","NOMBRE", "CONCENTRACION","PRESENTACIÓN", "P. VENTA","PROVEEDOR", "STOCK","LOTE"};
+        String[] cabecera1 = {"ID", "CODIGO","NOMBRE", "CONCENTRACION","PRESENTACIÓN","LABORATORIO","LOTE","P. VENTA","STOCK"};
         table1 = new DefaultTableModel(null, cabecera1);
         tbl_productos.setModel(table1);
-        tbl_productos.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(2).setPreferredWidth(140);
-        tbl_productos.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tbl_productos.getColumnModel().getColumn(4).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(5).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tbl_productos.getColumnModel().getColumn(7).setPreferredWidth(20);
-        tbl_productos.getColumnModel().getColumn(8).setPreferredWidth(20);
+//        tbl_productos.getColumnModel().getColumn(0).setPreferredWidth(10);
+//        tbl_productos.getColumnModel().getColumn(1).setPreferredWidth(10);
+//        tbl_productos.getColumnModel().getColumn(2).setPreferredWidth(200);
+//        tbl_productos.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(4).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(5).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(6).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(7).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(8).setPreferredWidth(20);
      }
     
     public void bloquear(){
@@ -81,7 +86,7 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
     
     public void cargarProductos() {
         String datos[] = new String[9];
-        String sql = "SELECT `id_pro_medi`, cod_prod, `nom_pro_medi` , concentracion_pro_medi ,`presentacion_pro_medi`, lote ,`prec_venta`, `provee_labo_pro_medi`, `stock_pro_medi` FROM `tproducto_medicamento`";
+        String sql = "SELECT `id_pro_medi`, cod_prod, `nom_pro_medi` , concentracion_pro_medi ,`presentacion_pro_medi`,proveedor ,lote ,`prec_venta`, `stock_pro_medi` FROM `tproducto_medicamento`";
         try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -91,10 +96,11 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                 datos[2] = rs.getString("nom_pro_medi");
                 datos[3] = rs.getString("concentracion_pro_medi");
                 datos[4] = rs.getString("presentacion_pro_medi");
-                datos[5] = rs.getString("prec_venta");
-                datos[6] = rs.getString("provee_labo_pro_medi");
-                datos[7] = String.valueOf(rs.getInt("stock_pro_medi"));
-                datos[8] = rs.getString("lote");
+                datos[5] = rs.getString("proveedor");
+                datos[6] = rs.getString("lote");
+                datos[7] = rs.getString("prec_venta");
+                datos[8] = String.valueOf(rs.getInt("stock_pro_medi"));
+                
                 table1.addRow(datos);
             }
             tbl_productos.setModel(table1);
@@ -142,10 +148,10 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                     txtNewConcentracion.transferFocus(); 
                             if (!txtNewPresentacion.getText().trim().isEmpty()) {
                                 txtNewPresentacion.transferFocus();
-                                    if (!txtNewRegSanitario.getText().trim().isEmpty()) {
-                                        txtNewRegSanitario.transferFocus();
-                                        if (!txtNewLote.getText().trim().isEmpty()) {
-                                                txtNewLote.transferFocus();
+                                    if (!txtPrecioBlister.getText().trim().isEmpty()) {
+                                        txtPrecioBlister.transferFocus();
+                                        if (!txtLote.getText().trim().isEmpty()) {
+                                                txtLote.transferFocus();
                                                  if (!txtNewPrecVenta.getText().trim().isEmpty()) {
                                                     txtNewPrecVenta.transferFocus();
                                                 if (!txtNewStock.getText().trim().isEmpty()) {
@@ -161,11 +167,11 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                                         }
                                               } else {
                                         JOptionPane.showMessageDialog(frm_nuevo.getRootPane(), "INGRESE LOTE");
-                                        txtNewLote.requestFocus();
+                                        txtLote.requestFocus();
                                     }
                                     } else {
                                         JOptionPane.showMessageDialog(frm_nuevo.getRootPane(), "INGRESE REGISTRO SANITARIO");
-                                        txtNewRegSanitario.requestFocus();
+                                        txtPrecioBlister.requestFocus();
                                     }
                             } else {
                                 JOptionPane.showMessageDialog(frm_nuevo.getRootPane(), "INGRESE PRESENTACION");
@@ -196,8 +202,8 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                     txtModConcentracion.transferFocus();
                             if (!txtModPresentacion.getText().trim().isEmpty()) {
                                 txtModPresentacion.transferFocus();
-                                    if (!txtModNumRegSanitario.getText().trim().isEmpty()) {
-                                        txtModNumRegSanitario.transferFocus();
+                                    if (!txtModPrecioBlister.getText().trim().isEmpty()) {
+                                        txtModPrecioBlister.transferFocus();
                                          if (!txtModLote.getText().trim().isEmpty()) {
                                                    txtModLote.transferFocus();
                                         if (!txtModPrecVenta.getText().trim().isEmpty()) {
@@ -219,7 +225,7 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                                     }
                                     } else {
                                         JOptionPane.showMessageDialog(frm_modificar.getRootPane(), "INGRESE REGISTRO SANITARIO");
-                                        txtModNumRegSanitario.requestFocus();
+                                        txtModPrecioBlister.requestFocus();
                                     }
                                 
                             } else {
@@ -249,7 +255,7 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
         limpiarTabla();
         String art = txt_buscar.getText();
         String datos[] = new String[9];
-        String sql = "SELECT `id_pro_medi`, cod_prod, `nom_pro_medi`,concentracion_pro_medi, `presentacion_pro_medi`,lote, `fraccion_pro_medi`, `prec_venta`, `provee_labo_pro_medi`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "' OR cod_prod LIKE '" + art + "%' OR cod_prod LIKE '%" + art + "'";
+        String sql = "SELECT `id_pro_medi`, cod_prod, `nom_pro_medi`,concentracion_pro_medi, `presentacion_pro_medi`,lote, `prec_venta`, `proveedor`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "' OR cod_prod LIKE '" + art + "%' OR cod_prod LIKE '%" + art + "'";
         try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -259,10 +265,10 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                 datos[2] = rs.getString("nom_pro_medi");
                 datos[3] = rs.getString("concentracion_pro_medi");
                 datos[4] = rs.getString("presentacion_pro_medi");
-                datos[5] = rs.getString("prec_venta");
-                datos[6] = rs.getString("provee_labo_pro_medi");
-                datos[7] = String.valueOf(rs.getInt("stock_pro_medi"));
-                datos[8] = rs.getString("lote");
+                datos[5] = rs.getString("proveedor");
+                datos[6] = rs.getString("lote");
+                datos[7] = String.valueOf(rs.getDouble("prec_venta"));
+                datos[8] = rs.getString("stock_pro_medi");
                 table1.addRow(datos);
             }
             tbl_productos.setModel(table1);
@@ -292,10 +298,10 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
         //txtNewFormSimplificado.setText("");
         txtNewPresentacion.setText("");
         //txtNewFraccion.setText("");
-        txtNewRegSanitario.setText("");
+        txtPrecioBlister.setText("");
         txtNewPrecVenta.setText("");
         txtNewStock.setText("");
-        txtNewLote.setText("");
+        txtLote.setText("");
         txtNewProd.requestFocus();
        
      }
@@ -303,7 +309,7 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
     public void modificar_producto() {
         int fila = tbl_productos.getSelectedRow();
         int codigo = Integer.parseInt(tbl_productos.getValueAt(fila, 0).toString());
-        String sql = "SELECT `id_pro_medi`, `cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, lote,`nom_form_farm_pro_medi`, `nom_form_farm_simplif_pro_medi`, `presentacion_pro_medi`, `fraccion_pro_medi`, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`, `provee_labo_pro_medi`, prec_venta, `stock_pro_medi` FROM `tproducto_medicamento` WHERE id_pro_medi =" + codigo;
+        String sql = "SELECT `id_pro_medi`, `cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, lote,`nom_form_farm_pro_medi`, `nom_form_farm_simplif_pro_medi`, `presentacion_pro_medi`,`fecha_venc_pro_medi`, `fec_ingreso_prod`, `provee_labo_pro_medi`, prec_venta, `precio_blister`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE id_pro_medi =" + codigo;
 
         try {
             Statement st = cc.createStatement();
@@ -322,7 +328,7 @@ public final class Reg_productoAdmin extends javax.swing.JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 date = sdf.parse(Fec);
                 txtModFecVencimiento.setDate(date);
-                txtModNumRegSanitario.setText(rs.getString("num_reg_sanit_pro_medi"));
+                txtModPrecioBlister.setText(rs.getString("precio_blister"));
                 txtModProveedor.setText(rs.getString("provee_labo_pro_medi"));
                 txtModPrecVenta.setText(rs.getString("prec_venta"));
                 txtModStock.setText(rs.getString("stock_pro_medi"));
@@ -363,12 +369,12 @@ public void actualizarProductoEnBD(){
         String fecha = sdf.format(date);
         //int  fraccion = Integer.parseInt(txtModFraccion.getText());
         String prove = txtModProveedor.getText();
-        String reg_san = txtModNumRegSanitario.getText();
+        double precio_blister = Double.parseDouble(txtModPrecioBlister.getText());
         double prec_uni = Double.parseDouble(txtModPrecVenta.getText());
         int stock = Integer.parseInt(txtModStock.getText());
        
 
-        String sql = "UPDATE `tproducto_medicamento` SET `cod_prod`= '"+codigo+"',`nom_pro_medi`='"+nombre+"',`concentracion_pro_medi`='"+concentracion+"',`presentacion_pro_medi`='"+presentacion+"',`fecha_venc_pro_medi`= '"+fecha+"',`num_reg_sanit_pro_medi`='"+reg_san+"',lote='"+lote+"',`provee_labo_pro_medi`='"+prove+"',`prec_venta`="+prec_uni+",`stock_pro_medi`="+stock+" WHERE  id_pro_medi = " + idprod;
+        String sql = "UPDATE `tproducto_medicamento` SET `cod_prod`= '"+codigo+"',`nom_pro_medi`='"+nombre+"',`concentracion_pro_medi`='"+concentracion+"',`presentacion_pro_medi`='"+presentacion+"',`fecha_venc_pro_medi`= '"+fecha+"',lote='"+lote+"',`provee_labo_pro_medi`='"+prove+"',`prec_venta`="+prec_uni+",precio_blister="+precio_blister+",`stock_pro_medi`="+stock+" WHERE  id_pro_medi = " + idprod;
         try {
             Statement st = cc.createStatement();
             int rs = st.executeUpdate(sql);
@@ -401,7 +407,6 @@ public void actualizarProductoEnBD(){
         frm_modificar = new javax.swing.JDialog();
         jLabel47 = new javax.swing.JLabel();
         lbl_logo2 = new javax.swing.JLabel();
-        btnModActualizar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         txtModFecVencimiento = new com.toedter.calendar.JDateChooser();
         cmb_provee = new javax.swing.JComboBox();
@@ -412,7 +417,7 @@ public void actualizarProductoEnBD(){
         txtModPrecVenta = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        txtModNumRegSanitario = new javax.swing.JTextField();
+        txtModPrecioBlister = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         txtModPresentacion = new javax.swing.JTextField();
@@ -427,7 +432,9 @@ public void actualizarProductoEnBD(){
         btnModCancelar = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         txtModLote = new javax.swing.JTextField();
-        jPanel6 = new javax.swing.JPanel();
+        cmbModificarLaboratorio = new javax.swing.JComboBox();
+        jLabel28 = new javax.swing.JLabel();
+        btnModActualizar = new javax.swing.JButton();
         frm_nuevo = new javax.swing.JDialog();
         jLabel46 = new javax.swing.JLabel();
         lbl_logo1 = new javax.swing.JLabel();
@@ -441,7 +448,7 @@ public void actualizarProductoEnBD(){
         jLabel41 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        txtNewRegSanitario = new javax.swing.JTextField();
+        txtPrecioBlister = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
@@ -453,8 +460,9 @@ public void actualizarProductoEnBD(){
         txtNewNombre = new javax.swing.JTextField();
         txtNewProd = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
-        txtNewLote = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        txtLote = new javax.swing.JTextField();
+        cmb_laboratorio = new javax.swing.JComboBox();
+        jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -472,7 +480,7 @@ public void actualizarProductoEnBD(){
         jPanel3 = new javax.swing.JPanel();
         llbl_pie = new javax.swing.JLabel();
 
-        frm_modificar.setBounds(new java.awt.Rectangle(500, 100, 725, 500));
+        frm_modificar.setBounds(new java.awt.Rectangle(500, 100, 717, 535));
         frm_modificar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel47.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -498,20 +506,10 @@ public void actualizarProductoEnBD(){
         lbl_logo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Banner.png"))); // NOI18N
         frm_modificar.getContentPane().add(lbl_logo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 60));
 
-        btnModActualizar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        btnModActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save.png"))); // NOI18N
-        btnModActualizar.setText("ACTUALIZAR");
-        btnModActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModActualizarActionPerformed(evt);
-            }
-        });
-        frm_modificar.getContentPane().add(btnModActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 150, 50));
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 2, true));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(txtModFecVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 260, 30));
+        jPanel4.add(txtModFecVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 250, 30));
 
         cmb_provee.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
         cmb_provee.addActionListener(new java.awt.event.ActionListener() {
@@ -519,18 +517,18 @@ public void actualizarProductoEnBD(){
                 cmb_proveeActionPerformed(evt);
             }
         });
-        jPanel4.add(cmb_provee, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 110, -1));
+        jPanel4.add(cmb_provee, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 110, -1));
 
         txtModProveedor.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModProveedor.setForeground(new java.awt.Color(0, 102, 255));
         txtModProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModProveedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
-        jPanel4.add(txtModProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 130, -1));
+        jPanel4.add(txtModProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 130, -1));
 
         jLabel27.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 0, 102));
         jLabel27.setText("STOCK");
-        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
+        jPanel4.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, -1, -1));
 
         txtModStock.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModStock.setForeground(new java.awt.Color(0, 102, 255));
@@ -542,12 +540,12 @@ public void actualizarProductoEnBD(){
                 txtModStockKeyTyped(evt);
             }
         });
-        jPanel4.add(txtModStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 255, -1));
+        jPanel4.add(txtModStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 255, -1));
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 0, 102));
         jLabel25.setText("PRECIO VENTA");
-        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
         txtModPrecVenta.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModPrecVenta.setForeground(new java.awt.Color(0, 102, 255));
@@ -563,38 +561,38 @@ public void actualizarProductoEnBD(){
                 txtModPrecVentaKeyTyped(evt);
             }
         });
-        jPanel4.add(txtModPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 255, -1));
+        jPanel4.add(txtModPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 255, -1));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel24.setText("PROVEEDOR");
-        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+        jLabel24.setText("LABORATORIO");
+        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 0, 102));
         jLabel23.setText("LOTE");
-        jPanel4.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jPanel4.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        txtModNumRegSanitario.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtModNumRegSanitario.setForeground(new java.awt.Color(0, 102, 255));
-        txtModNumRegSanitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtModNumRegSanitario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
-        txtModNumRegSanitario.addActionListener(new java.awt.event.ActionListener() {
+        txtModPrecioBlister.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtModPrecioBlister.setForeground(new java.awt.Color(0, 102, 255));
+        txtModPrecioBlister.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtModPrecioBlister.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
+        txtModPrecioBlister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtModNumRegSanitarioActionPerformed(evt);
+                txtModPrecioBlisterActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModNumRegSanitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 255, -1));
+        jPanel4.add(txtModPrecioBlister, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 255, -1));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 102));
         jLabel22.setText("FECHA DE VENCIMIENTO");
-        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("PRESENTACION");
-        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
         txtModPresentacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModPresentacion.setForeground(new java.awt.Color(0, 102, 255));
@@ -605,12 +603,12 @@ public void actualizarProductoEnBD(){
                 txtModPresentacionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 255, -1));
+        jPanel4.add(txtModPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 255, -1));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 102));
         jLabel17.setText("CONCENTRACION");
-        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
 
         txtModConcentracion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModConcentracion.setForeground(new java.awt.Color(0, 102, 255));
@@ -621,12 +619,12 @@ public void actualizarProductoEnBD(){
                 txtModConcentracionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModConcentracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 255, -1));
+        jPanel4.add(txtModConcentracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 255, -1));
 
         jLabel30.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(0, 0, 102));
         jLabel30.setText("NOMBRE DE PRODUCTO");
-        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         txtModNombre.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModNombre.setForeground(new java.awt.Color(0, 102, 255));
@@ -637,24 +635,24 @@ public void actualizarProductoEnBD(){
                 txtModNombreActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 255, -1));
+        jPanel4.add(txtModNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 255, -1));
 
         jLabel29.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 0, 102));
         jLabel29.setText("ID");
-        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
 
         txt_id.setEditable(false);
         txt_id.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_id.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txt_id.setEnabled(false);
-        jPanel4.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 80, -1));
+        jPanel4.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 80, -1));
 
         jLabel42.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(0, 0, 102));
         jLabel42.setText("CODIGO DE PRODUCTO");
-        jPanel4.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel4.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         txtModCodigo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModCodigo.setForeground(new java.awt.Color(0, 102, 255));
@@ -665,7 +663,7 @@ public void actualizarProductoEnBD(){
                 txtModCodigoActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 255, -1));
+        jPanel4.add(txtModCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 255, -1));
 
         btnModCancelar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnModCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete.png"))); // NOI18N
@@ -675,12 +673,12 @@ public void actualizarProductoEnBD(){
                 btnModCancelarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnModCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 150, 50));
+        jPanel4.add(btnModCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 150, 50));
 
         jLabel26.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel26.setText("NUMERO DE REGISTRO SANITARIO");
-        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jLabel26.setText("PRECIO BLISTER");
+        jPanel4.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
 
         txtModLote.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModLote.setForeground(new java.awt.Color(0, 102, 255));
@@ -691,24 +689,32 @@ public void actualizarProductoEnBD(){
                 txtModLoteActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 255, -1));
+        jPanel4.add(txtModLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 255, -1));
 
-        frm_modificar.getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 710, 380));
+        cmbModificarLaboratorio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
+        cmbModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbModificarLaboratorioActionPerformed(evt);
+            }
+        });
+        jPanel4.add(cmbModificarLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 250, -1));
 
-        jPanel6.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel28.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel28.setText("PROVEEDOR");
+        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
+        btnModActualizar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        btnModActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save.png"))); // NOI18N
+        btnModActualizar.setText("ACTUALIZAR");
+        btnModActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModActualizarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnModActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 150, 50));
 
-        frm_modificar.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 710, 20));
+        frm_modificar.getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 710, 450));
 
         frm_nuevo.setBackground(new java.awt.Color(255, 255, 255));
         frm_nuevo.setBounds(new java.awt.Rectangle(500, 100, 735, 500));
@@ -765,7 +771,7 @@ public void actualizarProductoEnBD(){
         txt_fecha.setDateFormatString("yyyy-MM-dd");
         jPanel2.add(txt_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 260, 30));
 
-        jPanel2.add(cmb_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 260, -1));
+        jPanel2.add(cmb_proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 260, -1));
 
         txtNewStock.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtNewStock.setForeground(new java.awt.Color(0, 51, 255));
@@ -781,7 +787,7 @@ public void actualizarProductoEnBD(){
                 txtNewStockKeyTyped(evt);
             }
         });
-        jPanel2.add(txtNewStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 255, -1));
+        jPanel2.add(txtNewStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 255, -1));
 
         txtNewPrecVenta.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtNewPrecVenta.setForeground(new java.awt.Color(0, 51, 255));
@@ -797,48 +803,48 @@ public void actualizarProductoEnBD(){
                 txtNewPrecVentaKeyTyped(evt);
             }
         });
-        jPanel2.add(txtNewPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 255, -1));
+        jPanel2.add(txtNewPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 255, -1));
 
         jLabel41.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(0, 0, 102));
         jLabel41.setText("STOCK");
-        jPanel2.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel2.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
 
         jLabel39.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(0, 0, 102));
         jLabel39.setText("PRECIO VENTA");
-        jPanel2.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, 30));
+        jPanel2.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, 20));
 
         jLabel38.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(0, 0, 102));
         jLabel38.setText("LOTE");
-        jPanel2.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jPanel2.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
 
-        txtNewRegSanitario.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtNewRegSanitario.setForeground(new java.awt.Color(0, 51, 255));
-        txtNewRegSanitario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNewRegSanitario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
-        txtNewRegSanitario.addActionListener(new java.awt.event.ActionListener() {
+        txtPrecioBlister.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtPrecioBlister.setForeground(new java.awt.Color(0, 51, 255));
+        txtPrecioBlister.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrecioBlister.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
+        txtPrecioBlister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewRegSanitarioActionPerformed(evt);
+                txtPrecioBlisterActionPerformed(evt);
             }
         });
-        jPanel2.add(txtNewRegSanitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 255, -1));
+        jPanel2.add(txtPrecioBlister, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 255, -1));
 
         jLabel37.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel37.setText("NUMERO DE REGISTRO SANITARIO");
-        jPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jLabel37.setText("PRECIO BLISTER");
+        jPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, -1, -1));
 
         jLabel36.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(0, 0, 102));
         jLabel36.setText("FECHA DE VENCIMIENTO");
-        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        jPanel2.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
         jLabel34.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(0, 0, 102));
         jLabel34.setText("PRESENTACION");
-        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
 
         txtNewPresentacion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtNewPresentacion.setForeground(new java.awt.Color(0, 51, 255));
@@ -859,17 +865,17 @@ public void actualizarProductoEnBD(){
         jLabel31.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 0, 102));
         jLabel31.setText("CODIGO DE PRODUCTO");
-        jPanel2.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel2.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
         jLabel33.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(0, 0, 102));
         jLabel33.setText("NOMBRE DE PRODUCTO");
-        jPanel2.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel2.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
         jLabel43.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(0, 0, 102));
         jLabel43.setText("CONCENTRACION");
-        jPanel2.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jPanel2.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         txtNewConcentracion.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtNewConcentracion.setForeground(new java.awt.Color(0, 51, 255));
@@ -921,36 +927,28 @@ public void actualizarProductoEnBD(){
 
         jLabel40.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel40.setText("PROVEEDOR");
-        jPanel2.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, 30));
+        jLabel40.setText("LABORATORIO");
+        jPanel2.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, 30));
 
-        txtNewLote.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        txtNewLote.setForeground(new java.awt.Color(0, 51, 255));
-        txtNewLote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNewLote.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
-        txtNewLote.addActionListener(new java.awt.event.ActionListener() {
+        txtLote.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtLote.setForeground(new java.awt.Color(0, 51, 255));
+        txtLote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLote.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 255), 1, true));
+        txtLote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewLoteActionPerformed(evt);
+                txtLoteActionPerformed(evt);
             }
         });
-        jPanel2.add(txtNewLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 255, -1));
+        jPanel2.add(txtLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 255, -1));
 
-        frm_nuevo.getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 720, 380));
+        jPanel2.add(cmb_laboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 260, -1));
 
-        jPanel5.setBackground(new java.awt.Color(0, 102, 255));
+        jLabel44.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel44.setText("PROVEEDOR");
+        jPanel2.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, 30));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        frm_nuevo.getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 720, 20));
+        frm_nuevo.getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 720, 420));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("PRODUCTOS");
@@ -1113,15 +1111,39 @@ public void actualizarProductoEnBD(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_modifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyActionPerformed
-        frm_modificar.setVisible(true);
-        modificar_producto();
-        cargarproveedorModificar();
+        try {
+            frm_modificar.setVisible(true);
+            modificar_producto();
+            cargarLaboratorio(cmbModificarLaboratorio);
+            cargarproveedorModificar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Reg_producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//        frm_modificar.setVisible(true);
+//        modificar_producto();
+//        cargarproveedorModificar();
     }//GEN-LAST:event_btn_modifyActionPerformed
 
+    public void cargarLaboratorio(JComboBox cmb) throws SQLException{
+        LaboratorioDAO ldao = new LaboratorioDAO();
+        for (Laboratorio l : ldao.listar()) {
+            cmb.addItem(l.getNombre());
+        }
+    }
+    
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
-        frm_nuevo.setVisible(true);
-        cargarproveedor();
-        txtNewProd.requestFocus();
+//        frm_nuevo.setVisible(true);
+//        cargarproveedor();
+//        txtNewProd.requestFocus();
+        try {
+            frm_nuevo.setVisible(true);
+            cargarproveedor();
+            cargarLaboratorio(cmb_laboratorio);
+            txtNewProd.requestFocus();
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
     }//GEN-LAST:event_btn_newActionPerformed
 
     private void tbl_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_productosMouseClicked
@@ -1218,13 +1240,12 @@ public void actualizarProductoEnBD(){
     }//GEN-LAST:event_txtNewConcentracionActionPerformed
 
     private void txtNewPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPresentacionActionPerformed
-       txtNewRegSanitario.requestFocus();
+       txtPrecioBlister.requestFocus();
     }//GEN-LAST:event_txtNewPresentacionActionPerformed
 
-    private void txtNewRegSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewRegSanitarioActionPerformed
-       txtNewLote.requestFocus();
-             
-    }//GEN-LAST:event_txtNewRegSanitarioActionPerformed
+    private void txtPrecioBlisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioBlisterActionPerformed
+       txtNewStock.requestFocus();
+    }//GEN-LAST:event_txtPrecioBlisterActionPerformed
 
     private void txtNewPrecVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPrecVentaActionPerformed
       txtNewPrecVenta.transferFocus();
@@ -1407,24 +1428,28 @@ public void actualizarProductoEnBD(){
     }//GEN-LAST:event_txtModConcentracionActionPerformed
 
     private void txtModPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModPresentacionActionPerformed
-        txtModNumRegSanitario.requestFocus();
+        txtModPrecioBlister.requestFocus();
     }//GEN-LAST:event_txtModPresentacionActionPerformed
 
-    private void txtModNumRegSanitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModNumRegSanitarioActionPerformed
+    private void txtModPrecioBlisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModPrecioBlisterActionPerformed
         txtModPrecVenta.requestFocus();
-    }//GEN-LAST:event_txtModNumRegSanitarioActionPerformed
+    }//GEN-LAST:event_txtModPrecioBlisterActionPerformed
 
-    private void txtNewLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewLoteActionPerformed
-      txtNewLote.transferFocus();
-    }//GEN-LAST:event_txtNewLoteActionPerformed
+    private void txtLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoteActionPerformed
+      txtNewPrecVenta.requestFocus();
+    }//GEN-LAST:event_txtLoteActionPerformed
 
     private void txtModLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModLoteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtModLoteActionPerformed
 
     private void txtNewStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewStockActionPerformed
-        // TODO add your handling code here:
+        btnNewRegistrar.doClick();
     }//GEN-LAST:event_txtNewStockActionPerformed
+
+    private void cmbModificarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbModificarLaboratorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbModificarLaboratorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1532,6 +1557,8 @@ public void actualizarProductoEnBD(){
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_modify;
     private javax.swing.JButton btn_new;
+    private javax.swing.JComboBox cmbModificarLaboratorio;
+    private javax.swing.JComboBox cmb_laboratorio;
     private javax.swing.JComboBox cmb_provee;
     private javax.swing.JComboBox cmb_proveedor;
     private javax.swing.JDialog frm_modificar;
@@ -1547,6 +1574,7 @@ public void actualizarProductoEnBD(){
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1560,6 +1588,7 @@ public void actualizarProductoEnBD(){
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
@@ -1567,8 +1596,6 @@ public void actualizarProductoEnBD(){
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_icono;
     private javax.swing.JLabel lbl_logo;
@@ -1576,47 +1603,45 @@ public void actualizarProductoEnBD(){
     private javax.swing.JLabel lbl_logo2;
     private javax.swing.JLabel llbl_pie;
     private javax.swing.JTable tbl_productos;
+    private javax.swing.JTextField txtLote;
     private javax.swing.JTextField txtModCodigo;
     private javax.swing.JTextField txtModConcentracion;
     private com.toedter.calendar.JDateChooser txtModFecVencimiento;
     private javax.swing.JTextField txtModLote;
     private javax.swing.JTextField txtModNombre;
-    private javax.swing.JTextField txtModNumRegSanitario;
     private javax.swing.JTextField txtModPrecVenta;
+    private javax.swing.JTextField txtModPrecioBlister;
     private javax.swing.JTextField txtModPresentacion;
     private javax.swing.JTextField txtModProveedor;
     private javax.swing.JTextField txtModStock;
     private javax.swing.JTextField txtNewConcentracion;
-    private javax.swing.JTextField txtNewLote;
     private javax.swing.JTextField txtNewNombre;
     private javax.swing.JTextField txtNewPrecVenta;
     private javax.swing.JTextField txtNewPresentacion;
     private javax.swing.JTextField txtNewProd;
-    private javax.swing.JTextField txtNewRegSanitario;
     private javax.swing.JTextField txtNewStock;
+    private javax.swing.JTextField txtPrecioBlister;
     private javax.swing.JTextField txt_buscar;
     private com.toedter.calendar.JDateChooser txt_fecha;
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_registros;
     // End of variables declaration//GEN-END:variables
 
-    public void registrarProducto() {
+    public void registrarProducto() {        
         String idprod =txtNewProd.getText();
         String nomProd = txtNewNombre.getText();
         String concentracion = txtNewConcentracion.getText();
-        //String formato = txtNewFormato.getText();
-        String lote = txtNewLote.getText();
         String presentacion = txtNewPresentacion.getText();
-        String fraccion = "1";
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
         Date dia = txt_fecha.getDate();
         String fecha_ingreso = new ManejadorFechas().getFechaActualMySQL();
         String fecha1 = formateador.format(dia);
-        String numRegSan = txtNewRegSanitario.getText();
-        String proveedor = cmb_proveedor.getSelectedItem().toString();      
+        String lote = txtLote.getText();
+        String proveedor = cmb_proveedor.getSelectedItem().toString();
         double precUni = Double.parseDouble(txtNewPrecVenta.getText());
+        double prec_blister = Double.parseDouble(txtPrecioBlister.getText());
         int stock = Integer.parseInt(txtNewStock.getText());
-        String sql = "INSERT INTO `tproducto_medicamento`(`cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,fraccion_pro_medi, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`, lote,`provee_labo_pro_medi`, `prec_venta`, `stock_pro_medi`, `id_contac`, `id_categoria`) VALUES ('"+idprod+"','"+nomProd+"','"+concentracion+"','"+presentacion+"','"+fraccion+"','"+fecha1+"','"+fecha_ingreso+"','"+numRegSan+"','"+lote+"','"+proveedor+"','"+precUni+"','"+stock+"',1,6)";
+        String sql = "INSERT INTO `tproducto_medicamento`(`cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,lote, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`,`provee_labo_pro_medi`, `prec_venta`,`precio_blister`, `stock_pro_medi`, `id_contac`, `id_categoria`) VALUES ('"+idprod+"','"+nomProd+"','"+concentracion+"','"+presentacion+"','"+lote+"','"+fecha1+"','"+fecha_ingreso+"','0','"+proveedor+"','"+precUni+"','"+prec_blister+"','"+stock+"',1,6)";
         try {
             Statement st = cc.createStatement();
             int rs = st.executeUpdate(sql);
@@ -1626,20 +1651,16 @@ public void actualizarProductoEnBD(){
                 limpiarTabla();
                 cargarProductos();
                 contar_productos();
-       
                 int opc = JOptionPane.showOptionDialog(btnNewRegistrar, "PRODUCTO REGISTRADO, ¿DESEA REGISTRAR MAS PRODUCTOS?", "showOptionDialog", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"SI", "NO"}, "SI");
                 if (opc == 0) {
                     limpiar();
-
                 } else if (opc == 1) {
                     frm_nuevo.dispose();
                     txt_buscar.requestFocus();
                     bloquear();
                 }
             }
-            
-            
-        } catch (SQLException | HeadlessException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }

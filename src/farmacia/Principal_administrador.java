@@ -10,7 +10,10 @@ import LOGIN.Login;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import Vista.*;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -199,7 +202,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         escritorio.add(btn_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 130, 70));
 
         btn_tiendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296051_09.png"))); // NOI18N
-        btn_tiendas.setText("TIENDAS");
+        btn_tiendas.setText("LABORATORIOS");
         btn_tiendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_tiendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_tiendas.addActionListener(new java.awt.event.ActionListener() {
@@ -585,10 +588,15 @@ public class Principal_administrador extends javax.swing.JFrame {
         m_reportes.add(jMenu7);
 
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453243072_cash_register.png"))); // NOI18N
-        jMenu9.setText("GASTOS");
+        jMenu9.setText("COMPRAS");
 
         jMenuItem23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453289091_money.png"))); // NOI18N
-        jMenuItem23.setText("GASTOS POR FECHA");
+        jMenuItem23.setText("REPORTE DE COMPRAS");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem23);
 
         m_reportes.add(jMenu9);
@@ -664,8 +672,11 @@ public class Principal_administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_m_productosActionPerformed
 
     private void btn_tiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tiendasActionPerformed
-        Configuracion c = new Configuracion();
-        c.setVisible(true);
+        try {
+            new Laboratorios().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal_administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_tiendasActionPerformed
 
     private void btn_gastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_gastosActionPerformed
@@ -834,6 +845,10 @@ public class Principal_administrador extends javax.swing.JFrame {
         Reg_usuario ru = new Reg_usuario();
         ru.setVisible(true);
     }//GEN-LAST:event_btn_usuariosActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        new ReporteDeCompras().setVisible(true);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
 
     /**
      * @param args the command line arguments

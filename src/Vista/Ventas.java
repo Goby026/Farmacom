@@ -1542,7 +1542,6 @@ public final class Ventas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frm_buscar.getRootPane(), "SELECCIONE UN PRODUCTO");
             cmbBlister.setSelected(false);
         }
-
         txtDescuento.setText("" + precio);
     }//GEN-LAST:event_cmbBlisterActionPerformed
 
