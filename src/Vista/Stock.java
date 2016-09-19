@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Gaby
@@ -31,7 +32,7 @@ public final class Stock extends javax.swing.JFrame {
     DefaultTableModel table1;
     HashMap parametros = new HashMap();
     MyiReportVisor mrv;
-    
+
     public Stock() {
         //setUndecorated(true);
         initComponents();
@@ -43,19 +44,26 @@ public final class Stock extends javax.swing.JFrame {
         String fechaActual;
         cargarTitulos();
         cargarProductos();
+        llenarComboLaboratorios();
     }
-    
-    public void cargarTitulos(){
-        String []titulos = {"CÓDIGO","NOMBRE","CONCENTRACIÓN","PRESENTACIÓN","STOCK"};
+
+    public void cargarTitulos() {
+        String[] titulos = {"CÓDIGO", "NOMBRE", "CONCENTRACIÓN", "PRESENTACIÓN", "STOCK", "PRECIO"};
         table1 = new DefaultTableModel(null, titulos);
         tbl_productos.setModel(table1);
-        lbl_fecha.setText(""+new Fechas().fechaCadena());
+        lbl_fecha.setText("" + new Fechas().fechaCadena());
         lbl_pie.setText(new Farma_inf().pie());
+        tbl_productos.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tbl_productos.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_productos.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tbl_productos.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tbl_productos.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tbl_productos.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
-    
+
     public void cargarProductos() {
-        String datos[] = new String[5];
-        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento` WHERE stock_pro_medi<=40";
+        String datos[] = new String[6];
+        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi`, prec_venta FROM `tproducto_medicamento` WHERE stock_pro_medi<=40";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -65,6 +73,7 @@ public final class Stock extends javax.swing.JFrame {
                 datos[2] = rs.getString("concentracion_pro_medi");
                 datos[3] = rs.getString("presentacion_pro_medi");
                 datos[4] = rs.getString("stock_pro_medi");
+                datos[5] = rs.getString("prec_venta");
                 table1.addRow(datos);
             }
             tbl_productos.setModel(table1);
@@ -74,12 +83,27 @@ public final class Stock extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
+    private void llenarComboLaboratorios() {
+        String datos[] = new String[1];
+        String sql = "select nombre from laboratorio";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString("nombre");
+                cmbLaboratorio.addItem(datos[0]);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
     public void buscarProductos() {
         limpiarTabla();
         String art = txt_buscar.getText();
-        String datos[] = new String[5];
-        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento` WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
+        String datos[] = new String[6];
+        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento`, prec_venta WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -89,6 +113,7 @@ public final class Stock extends javax.swing.JFrame {
                 datos[2] = rs.getString("concentracion_pro_medi");
                 datos[3] = rs.getString("presentacion_pro_medi");
                 datos[4] = rs.getString("stock_pro_medi");
+                datos[5] = rs.getString("prec_venta");
                 table1.addRow(datos);
             }
             tbl_productos.setModel(table1);
@@ -99,11 +124,11 @@ public final class Stock extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    public void getRango(int rango){
+
+    public void mostrarProductosPorLaboratorio(String nomLabo) {
         limpiarTabla();
-        String datos[] = new String[5];
-        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento` WHERE stock_pro_medi<= "+rango+"";
+        String datos[] = new String[6];
+        String sql = "SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi`,prec_venta FROM `tproducto_medicamento` WHERE proveedor = '" + nomLabo + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -113,6 +138,7 @@ public final class Stock extends javax.swing.JFrame {
                 datos[2] = rs.getString("concentracion_pro_medi");
                 datos[3] = rs.getString("presentacion_pro_medi");
                 datos[4] = rs.getString("stock_pro_medi");
+                datos[5] = rs.getString("prec_venta");
                 table1.addRow(datos);
                 tbl_productos.setModel(table1);
                 int filas = tbl_productos.getRowCount();
@@ -122,7 +148,7 @@ public final class Stock extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     public void limpiarTabla() {
         for (int i = 0; i < tbl_productos.getRowCount(); i++) {
             table1.removeRow(i);
@@ -150,7 +176,7 @@ public final class Stock extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbl_pie = new javax.swing.JLabel();
-        cmb_rango = new javax.swing.JComboBox();
+        cmbLaboratorio = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -160,6 +186,7 @@ public final class Stock extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("STOCK");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -221,7 +248,7 @@ public final class Stock extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel9.setText("CANTIDAD");
+        jLabel9.setText("LABORATORIO");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -238,14 +265,13 @@ public final class Stock extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 880, 30));
 
-        cmb_rango.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        cmb_rango.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MENOS DE 10", "MENOS DE 20", "MENOS DE 30", "MENOS DE 40", "MENOS DE 50", "MENOS DE 60", "MENOS DE 80", "MENOS DE 90", "MENOS DE 100" }));
-        cmb_rango.addActionListener(new java.awt.event.ActionListener() {
+        cmbLaboratorio.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        cmbLaboratorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_rangoActionPerformed(evt);
+                cmbLaboratorioActionPerformed(evt);
             }
         });
-        getContentPane().add(cmb_rango, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 140, -1));
+        getContentPane().add(cmbLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 140, -1));
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 2, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 102));
@@ -297,7 +323,7 @@ public final class Stock extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_registrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_registrosKeyReleased
-        
+
     }//GEN-LAST:event_txt_registrosKeyReleased
 
     private void txt_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyReleased
@@ -315,106 +341,35 @@ public final class Stock extends javax.swing.JFrame {
 
     private void jLabel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseDragged
         Point point = MouseInfo.getPointerInfo().getLocation();
-        this.setLocation(point.x-posx, point.y-posy);
+        this.setLocation(point.x - posx, point.y - posy);
     }//GEN-LAST:event_jLabel1MouseDragged
 
-    private void cmb_rangoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_rangoActionPerformed
-        int indice = cmb_rango.getSelectedIndex();
-        int num;
-        switch(indice){
-            case 0:
-                num = 10;
-                getRango(num);
-                break;
-            case 1:
-                num = 20;
-                getRango(num);
-                break;
-            case 2:
-                num = 30;
-                getRango(num);
-                break;
-            case 3:
-                num = 40;
-                getRango(num);
-                break;
-            case 4:
-                num = 50;
-                getRango(num);
-                break;
-            case 5:
-                num = 60;
-                getRango(num);
-                break;
-            case 6:
-                num = 70;
-                getRango(num);
-                break;
-            case 7:
-                num = 80;
-                getRango(num);
-                break;
-            case 8:
-                num = 90;
-                getRango(num);
-                break;
-            case 9:
-                num = 100;
-                getRango(num);
-                break;
-        }
-    }//GEN-LAST:event_cmb_rangoActionPerformed
+    private void cmbLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLaboratorioActionPerformed
+        String nomLabo = cmbLaboratorio.getSelectedItem().toString();
+        mostrarProductosPorLaboratorio(nomLabo);
+    }//GEN-LAST:event_cmbLaboratorioActionPerformed
 
     private void btn_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteActionPerformed
-            int opc = cmb_rango.getSelectedIndex();
-            int numero = 10;
-            switch(opc){
-                case 0: 
-                    numero = 10;
-                    break;
-                case 1:
-                    numero = 20;
-                    break;
-                case 2:
-                    numero = 30;
-                    break;
-                case 3:
-                    numero = 40;
-                    break;
-                case 4:
-                    numero = 50;
-                    break;
-                case 5:
-                    numero = 60;
-                    break;
-                case 6:
-                    numero = 70;
-                    break;
-                case 7:
-                    numero = 80;
-                    break;
-                case 8:
-                    numero = 90;
-                    break;
-                case 9:
-                    numero = 100;
-                    break;     
-            }
-            double val = valorizacion();
-            parametros.put("valorizacion",val);
-            parametros.put("numero", numero);
-            mrv = new MyiReportVisor(System.getProperty("user.dir") + "\\reportes\\stock.jrxml", parametros);
-            mrv.exportarAPdf();
+        int numFilas = tbl_productos.getRowCount();
+        double valor = 0.0;
+        for (int i = 0; i < numFilas; i++) {
+            valor += Double.parseDouble(tbl_productos.getValueAt(i, 5).toString());
+        }
+        String nomLabo = cmbLaboratorio.getSelectedItem().toString();
+        parametros.put("valor", valor);
+        parametros.put("nomLabo", nomLabo);
+        mrv = new MyiReportVisor(System.getProperty("user.dir") + "\\reportes\\stock.jrxml", parametros);
+        mrv.exportarAPdf();
     }//GEN-LAST:event_btn_reporteActionPerformed
 
-    public double valorizacion(){
+    public double valorizacion() {
         double valor = 0.0;
         double precVenta = 0.0;
         int idProd = 0;
         String nombre = null;
-        
+
         int numFilas = tbl_productos.getRowCount();
-        
+
         for (int i = 0; i < numFilas; i++) {
             idProd = Integer.parseInt(tbl_productos.getValueAt(i, 0).toString());
             nombre = tbl_productos.getValueAt(i, 1).toString();
@@ -423,9 +378,7 @@ public final class Stock extends javax.swing.JFrame {
         }
         return valor;
     }
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -464,7 +417,7 @@ public final class Stock extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_reporte;
-    private javax.swing.JComboBox cmb_rango;
+    private javax.swing.JComboBox cmbLaboratorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

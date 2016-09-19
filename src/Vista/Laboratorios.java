@@ -231,20 +231,24 @@ public class Laboratorios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            String nombre = txtNombre.getText();
-            String direccion = txtDireccion.getText();
-            String telefono = txtTelefono.getText();
-            Laboratorio lab = new Laboratorio();
-            lab.setNombre(nombre);
-            lab.setDireccion(direccion);
-            lab.setTelefono(telefono);
-            LaboratorioDAO ldao = new LaboratorioDAO();
-            if (ldao.Registrar(lab)) {
-                JOptionPane.showMessageDialog(getRootPane(), "LABORATORIO REGISTRADO");
-                limpiarTabla();
-                cargarTabla(tblLaboratorio, 50, 100, 200);
-                limpiar();
+            if (!txtNombre.getText().trim().isEmpty()) {
+                String nombre = txtNombre.getText();
+                String direccion = txtDireccion.getText();
+                String telefono = txtTelefono.getText();
+                Laboratorio lab = new Laboratorio();
+                lab.setNombre(nombre);
+                lab.setDireccion(direccion);
+                lab.setTelefono(telefono);
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                if (ldao.Registrar(lab)) {
+                    JOptionPane.showMessageDialog(getRootPane(), "LABORATORIO REGISTRADO");
+                    limpiarTabla();
+                    cargarTabla(tblLaboratorio, 50, 100, 200);
+                    limpiar();
+                }
             } else {
+                JOptionPane.showMessageDialog(getRootPane(), "INDIQUE NOMBRE DE LABORATORIO");
+                txtNombre.requestFocus();
             }
 
         } catch (SQLException ex) {
@@ -282,14 +286,16 @@ public class Laboratorios extends javax.swing.JFrame {
                 limpiar();
                 limpiarTabla();
                 cargarTabla(tblLaboratorio, 50, 100, 200);
+                btnEliminar.setEnabled(false);                
+                btnModificar.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(getRootPane(), "ERROR");
             }
-            
+
         } catch (Exception ex) {
             ex.getMessage();
         }
-        
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -307,7 +313,7 @@ public class Laboratorios extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tblLaboratorio.getSelectedRow();
         int id = Integer.parseInt(tblLaboratorio.getValueAt(fila, 0).toString());
-        if (fila>=0) {
+        if (fila >= 0) {
             try {
                 LaboratorioDAO ldao = new LaboratorioDAO();
                 Laboratorio l = new Laboratorio();
@@ -320,10 +326,11 @@ public class Laboratorios extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(getRootPane(), "ERROR");
                 }
-
             } catch (SQLException ex) {
                 ex.getMessage();
             }
+        }else{
+            JOptionPane.showMessageDialog(getRootPane(), "SELECCIONE UN LABORATORIO");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

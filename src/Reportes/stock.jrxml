@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="29a9e1d8-7ea4-42dc-937a-8127e49c2305">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="numero" class="java.lang.Integer">
+	<parameter name="nomLabo" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="valorizacion" class="java.lang.Double">
+	<parameter name="valor" class="java.lang.Double">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento` WHERE stock_pro_medi<= $P{numero}]]>
+		<![CDATA[SELECT `id_pro_medi`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,`stock_pro_medi` FROM `tproducto_medicamento` WHERE proveedor = $P{nomLabo}]]>
 	</queryString>
 	<field name="id_pro_medi" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -52,34 +52,28 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="22" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="174" height="20" uuid="5f90f844-4254-4afe-8382-548c98f26111"/>
+				<reportElement x="0" y="0" width="95" height="18" uuid="5f90f844-4254-4afe-8382-548c98f26111"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[EXISTENCIAS MENORES A:]]></text>
+				<text><![CDATA[LABORATORIO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="0" width="123" height="18" uuid="204b6723-815d-401e-9ae5-946576a4e5f6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[VALORIZACÍON S/.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="185" y="0" width="100" height="20" forecolor="#0000CC" uuid="9973cba8-04ea-485b-a6de-e57ca79ae867"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
+				<reportElement x="477" y="0" width="64" height="18" uuid="1b00d9cf-8b02-4311-a4ab-b2d803264221"/>
+				<textFieldExpression><![CDATA[$P{valor}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="354" y="0" width="90" height="20" uuid="204b6723-815d-401e-9ae5-946576a4e5f6"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[VALORIZACÍON]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="475" y="2" width="80" height="20" uuid="e0b15c4e-7326-4754-a70a-a6f0d2c156f9"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{valorizacion}]]></textFieldExpression>
+				<reportElement x="111" y="0" width="100" height="18" uuid="294f8bcd-5da4-45ea-87bc-aba81a7c47d0"/>
+				<textFieldExpression><![CDATA[$P{nomLabo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -113,7 +107,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="111" height="20" uuid="234cd2e8-0920-4d1c-9e4c-5384707db457"/>
 				<textElement textAlignment="Center"/>

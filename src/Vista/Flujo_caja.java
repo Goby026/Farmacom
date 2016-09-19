@@ -169,10 +169,12 @@ public final class Flujo_caja extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        txtVisa = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbl_pie = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_titulo.setBackground(new java.awt.Color(0, 0, 102));
@@ -203,9 +205,9 @@ public final class Flujo_caja extends javax.swing.JFrame {
                 lbl_salirMouseClicked(evt);
             }
         });
-        panel_titulo.add(lbl_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
+        panel_titulo.add(lbl_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, -1, -1));
 
-        getContentPane().add(panel_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 70));
+        getContentPane().add(panel_titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 70));
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 102));
 
@@ -227,7 +229,7 @@ public final class Flujo_caja extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbl_diario);
 
-        panel_principal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 530, 320));
+        panel_principal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 590, 400));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
@@ -259,12 +261,12 @@ public final class Flujo_caja extends javax.swing.JFrame {
 
         txt_balance_diario.setEditable(false);
         txt_balance_diario.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        panel_principal.add(txt_balance_diario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 283, 140, 30));
+        panel_principal.add(txt_balance_diario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 140, 30));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 102));
         jLabel6.setText("BALANCE");
-        panel_principal.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+        panel_principal.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         btn_revisar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btn_revisar.setText("REVISAR");
@@ -288,7 +290,7 @@ public final class Flujo_caja extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(0, 0, 102));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel3.setText("VENTAS EL DÍA DE HOY");
+        jLabel3.setText("VENTAS DEL DÍA");
         panel_principal.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
 
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -298,7 +300,7 @@ public final class Flujo_caja extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        panel_principal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
+        panel_principal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
@@ -311,9 +313,19 @@ public final class Flujo_caja extends javax.swing.JFrame {
         });
         panel_principal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
+        txtVisa.setEditable(false);
+        txtVisa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtVisa.setForeground(new java.awt.Color(204, 0, 0));
+        panel_principal.add(txtVisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 110, -1));
+
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel8.setText("VISA");
+        panel_principal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+
         jTabbedPane1.addTab("DIARIO", panel_principal);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 850, 420));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 880, 510));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -321,9 +333,9 @@ public final class Flujo_caja extends javax.swing.JFrame {
         lbl_pie.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         lbl_pie.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pie.setText("jLabel7");
-        jPanel1.add(lbl_pie, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 760, 20));
+        jPanel1.add(lbl_pie, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 760, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 850, 30));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 880, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -428,6 +440,7 @@ public final class Flujo_caja extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -437,6 +450,7 @@ public final class Flujo_caja extends javax.swing.JFrame {
     private javax.swing.JPanel panel_principal;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable tbl_diario;
+    private javax.swing.JTextField txtVisa;
     private javax.swing.JTextField txt_balance_diario;
     private javax.swing.JTextField txt_gastos_diario;
     private javax.swing.JTextField txt_ingresos_diario;

@@ -9,6 +9,7 @@ import Control.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +43,13 @@ public final class gestionCompras extends javax.swing.JFrame {
         modelDetalleCompra = new DefaultTableModel(null, titulos2);
         tblCompras.setModel(modelCompras);
         tblDetalleCompras.setModel(modelDetalleCompra);
+        
+        tblDetalleCompras.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblDetalleCompras.getColumnModel().getColumn(1).setPreferredWidth(10);
+        tblDetalleCompras.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblDetalleCompras.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tblDetalleCompras.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblDetalleCompras.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
     public void cargarRangoCompras() {
@@ -287,7 +295,6 @@ public final class gestionCompras extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCompras = new javax.swing.JTable();
@@ -397,13 +404,7 @@ public final class gestionCompras extends javax.swing.JFrame {
         jLabel1.setText("GESTIÓN COMPRAS");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 240, 20));
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("AYUDA");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 60));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LISTA DE COMPRAS REALIZADAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -426,7 +427,7 @@ public final class gestionCompras extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCompras);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 670, 190));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 870, 190));
 
         btnAnularCompra.setBackground(new java.awt.Color(255, 0, 0));
         btnAnularCompra.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -437,7 +438,7 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnAnularCompraActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAnularCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, -1, -1));
+        jPanel2.add(btnAnularCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -445,77 +446,77 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel13.setText("DOCUMENTO");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, -1, -1));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel14.setText("PROVEEDOR");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 110, -1, -1));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 110, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel15.setText("N°");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 200, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel16.setText("FORMA DE PAGO");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, -1, -1));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel17.setText("SERIE");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, -1, -1));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 170, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel24.setText("N° COMPRA");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, -1, -1));
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 30, -1, -1));
 
         txtNumCompra.setEditable(false);
         txtNumCompra.setBackground(new java.awt.Color(255, 255, 153));
         txtNumCompra.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         txtNumCompra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtNumCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 60, -1));
+        jPanel2.add(txtNumCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 30, 60, -1));
 
         txtSerie.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         txtSerie.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 170, 70, -1));
+        jPanel2.add(txtSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 170, 70, -1));
 
         txtNum.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         txtNum.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 200, 70, -1));
+        jPanel2.add(txtNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 200, 70, -1));
 
         cmbFormaPago.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cmbFormaPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CONTADO", "CRÉDITO" }));
-        jPanel2.add(cmbFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 40, 120, -1));
+        jPanel2.add(cmbFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 40, 120, -1));
 
         cmbProveedor.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jPanel2.add(cmbProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 130, 160, -1));
+        jPanel2.add(cmbProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 130, 160, -1));
 
         cmbDocumento.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cmbDocumento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BOLETA", "FACTURA", "GUÍA DE REMISIÓN" }));
-        jPanel2.add(cmbDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 160, -1));
+        jPanel2.add(cmbDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 160, -1));
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel12.setText("HORA");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 70, -1, -1));
 
         txtHora.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         txtHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 90, 120, -1));
+        jPanel2.add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 90, 120, -1));
 
         jLabel18.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel18.setText("ESTADO");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, -1, -1));
-        jPanel2.add(jdcFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 140, 120, -1));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 170, -1, -1));
+        jPanel2.add(jdcFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 140, 120, -1));
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel25.setText("FECHA");
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 120, -1, -1));
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 120, -1, -1));
 
         cmbEstado.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACTIVO", "ANULADO" }));
-        jPanel2.add(cmbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 190, 120, -1));
+        jPanel2.add(cmbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 190, 120, -1));
 
         btnModificarCompra.setBackground(new java.awt.Color(0, 153, 0));
         btnModificarCompra.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -526,9 +527,9 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnModificarCompraActionPerformed(evt);
             }
         });
-        jPanel2.add(btnModificarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, -1, -1));
+        jPanel2.add(btnModificarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 240, 230, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 1080, 290));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 1290, 290));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRODUCTOS COMPRADOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -551,30 +552,30 @@ public final class gestionCompras extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblDetalleCompras);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 670, 160));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 880, 160));
 
         jButton3.setText("MODIFICAR");
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel19.setText("N° PRODUCTO");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, -1, -1));
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 30, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel20.setText("NOM. PRODUCTO");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, -1, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 60, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel21.setText("CANTIDAD");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 110, -1, -1));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel22.setText("PRECIO");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 140, -1, -1));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 140, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel23.setText("SUBTOTAL");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, -1, -1));
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 170, -1, -1));
 
         btnEliminarDetalle.setText("ELIMINAR");
         btnEliminarDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -582,21 +583,26 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnEliminarDetalleActionPerformed(evt);
             }
         });
-        jPanel3.add(btnEliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, -1, -1));
+        jPanel3.add(btnEliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
-        txtSubtotal.setEditable(false);
         txtSubtotal.setBackground(new java.awt.Color(255, 255, 153));
-        jPanel3.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 170, 90, -1));
+        txtSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 170, 90, -1));
 
         txtIdProd.setEditable(false);
         txtIdProd.setBackground(new java.awt.Color(255, 255, 153));
-        jPanel3.add(txtIdProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 30, 90, -1));
-        jPanel3.add(txtNomProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 220, -1));
-        jPanel3.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 110, 90, -1));
+        txtIdProd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtIdProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 30, 90, -1));
 
-        txtPrecio.setEditable(false);
+        txtNomProd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtNomProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 80, 220, -1));
+
+        txtCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 110, 90, -1));
+
         txtPrecio.setBackground(new java.awt.Color(255, 255, 153));
-        jPanel3.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 140, 90, -1));
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 140, 90, -1));
 
         btnBuscarProd.setText("...");
         btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
@@ -604,7 +610,7 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnBuscarProdActionPerformed(evt);
             }
         });
-        jPanel3.add(btnBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 70, -1, -1));
+        jPanel3.add(btnBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 70, -1, -1));
 
         btnModificarDetalleCompra.setBackground(new java.awt.Color(0, 153, 0));
         btnModificarDetalleCompra.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -615,13 +621,13 @@ public final class gestionCompras extends javax.swing.JFrame {
                 btnModificarDetalleCompraActionPerformed(evt);
             }
         });
-        jPanel3.add(btnModificarDetalleCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 210, -1, -1));
+        jPanel3.add(btnModificarDetalleCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 220, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 1080, 250));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 1290, 250));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("N° COMPRA");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 70, -1, -1));
 
         jLabel2.setText("INICIO");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
@@ -654,7 +660,7 @@ public final class gestionCompras extends javax.swing.JFrame {
                 txtCompraNumKeyReleased(evt);
             }
         });
-        getContentPane().add(txtCompraNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 80, 30));
+        getContentPane().add(txtCompraNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 70, 80, 30));
 
         cmbMostrar.setText("TODAS LA COMPRAS");
         cmbMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -915,19 +921,28 @@ public final class gestionCompras extends javax.swing.JFrame {
         String producto = txtNomProd.getText();
         int idProd = new Farma_inf().getIdProducto(producto);
         int cantidad = Integer.parseInt(txtCantidad.getText());
+        double precio = Double.parseDouble(txtPrecio.getText());
         double subTotal = Double.parseDouble(txtSubtotal.getText());
         //UPDATE `farmacom`.`tdetalleventa` SET `id_pro_medi` = '12' WHERE `tdetalleventa`.`id` = 8;
-        String sql = "UPDATE `farmacom`.`tdetalle_compra` SET `id_pro_medi` ="+idProd+",`cantidad`="+cantidad+",`sub_total`="+subTotal+"  WHERE `tdetalle_compra`.`id` = "+id;
+        String sql = "UPDATE tdetalle_compra SET `id_pro_medi` ="+idProd+",precio = "+precio+",`cantidad`="+cantidad+",`sub_total`="+subTotal+"  WHERE `tdetalle_compra`.`id` = "+id;
         try {
             Statement st =con.createStatement();
             int rs = st.executeUpdate(sql);
             if (rs>0) {
                 JOptionPane.showMessageDialog(getRootPane(), "SE ACTUALIZÓ EL PRODUCTO DE LA COMPRA");
-                cargarDetalleCompra(Integer.parseInt(tblCompras.getValueAt(fila, 0).toString()));
+                int filaCompra = tblCompras.getSelectedRow();
+                cargarDetalleCompra(Integer.parseInt(tblCompras.getValueAt(filaCompra, 0).toString()));
             } else {
             }
+            st.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
+        }finally{
+            try {
+                con.close();                
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_btnModificarDetalleCompraActionPerformed
 
@@ -963,10 +978,13 @@ public final class gestionCompras extends javax.swing.JFrame {
     public void getProducto(int fila) {
         int codProd = Integer.parseInt(tbl_buscar_prod.getValueAt(fila, 0).toString());
         String nomProd = tbl_buscar_prod.getValueAt(fila, 1).toString();
-        double precProd = new Farma_inf().getPrecioProducto(nomProd,codProd);
+        //double precProd = new Farma_inf().getPrecioProducto(nomProd,codProd);
+        
         txtIdProd.setText(""+codProd);
         txtNomProd.setText(nomProd);
-        txtPrecio.setText(""+precProd);
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        txtSubtotal.setText("");
     }
     private void txt_buscar_prodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscar_prodKeyReleased
         buscarProductos();
@@ -1103,7 +1121,6 @@ public final class gestionCompras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

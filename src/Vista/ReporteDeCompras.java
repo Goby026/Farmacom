@@ -40,6 +40,23 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         modelDetalleCompra = new DefaultTableModel(null, titulos2);
         tblCompras.setModel(modelCompras);
         tblDetalleCompras.setModel(modelDetalleCompra);
+        tblCompras.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblCompras.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblCompras.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblCompras.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tblCompras.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblCompras.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tblCompras.getColumnModel().getColumn(6).setPreferredWidth(50);
+        tblCompras.getColumnModel().getColumn(7).setPreferredWidth(50);
+        tblCompras.getColumnModel().getColumn(8).setPreferredWidth(50);
+        
+        tblDetalleCompras.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblDetalleCompras.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tblDetalleCompras.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblDetalleCompras.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tblDetalleCompras.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblDetalleCompras.getColumnModel().getColumn(5).setPreferredWidth(50);
+        
     }
 
     public void limpiarTablaCompras() {
@@ -162,6 +179,11 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txtBoleta = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("REPORTES DE COMPRAS");
@@ -191,16 +213,17 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblCompras);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 950, 210));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 900, 210));
 
-        jLabel2.setText("DESDE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("DOCUMENTO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         jLabel3.setText("DETALLES DE COMPRA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
 
         jLabel4.setText("HASTA");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         btnMostrar.setBackground(new java.awt.Color(51, 153, 0));
         btnMostrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,9 +233,9 @@ public class ReporteDeCompras extends javax.swing.JFrame {
                 btnMostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 180, -1));
-        getContentPane().add(jdcHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 160, -1));
-        getContentPane().add(jdcDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 160, -1));
+        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 160, -1));
+        getContentPane().add(jdcHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 160, -1));
+        getContentPane().add(jdcDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 160, -1));
 
         btnReporte.setBackground(new java.awt.Color(204, 102, 0));
         btnReporte.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,7 +247,7 @@ public class ReporteDeCompras extends javax.swing.JFrame {
                 btnReporteActionPerformed(evt);
             }
         });
-        getContentPane().add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 566, 190, 40));
+        getContentPane().add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 640, 190, 40));
 
         tblDetalleCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,42 +262,44 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblDetalleCompras);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 950, 210));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 900, 210));
 
+        jButton2.setBackground(new java.awt.Color(0, 153, 51));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("VER DETALLE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 280, 130, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 290, 130, -1));
 
         jLabel6.setText("CREAR REPORTE");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
 
-        jLabel7.setText("1° Seleccione un rango de fechas");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        jLabel7.setText("DEL DIA\"");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         jLabel8.setText("2° Seleccione una compra de la");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         jLabel9.setText("ó presionar ALT + N");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 610, -1, -1));
 
         jLabel10.setText("compra seleccionada antes.");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, -1, -1));
 
         jLabel11.setText("tabla superior");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
 
         jLabel12.setText("seleccionada pulse sobre");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
 
         jLabel13.setText("3° Pulse el boton VER DETALLE");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
 
         jLabel14.setText("para visualizar los detalles de la");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, -1, -1));
 
         cmbComprasDelDia.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         cmbComprasDelDia.setText("COMPRAS DEL DIA");
@@ -283,7 +308,7 @@ public class ReporteDeCompras extends javax.swing.JFrame {
                 cmbComprasDelDiaActionPerformed(evt);
             }
         });
-        getContentPane().add(cmbComprasDelDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        getContentPane().add(cmbComprasDelDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -293,14 +318,15 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         jLabel5.setText("SELECCIONE PERIODO");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 220, 20));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 270, 20));
 
         lblTotal.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblTotal.setText("......");
-        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 530, 150, -1));
+        getContentPane().add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 590, 160, -1));
 
-        jLabel16.setText("TOTAL GRABADO:");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 530, -1, -1));
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel16.setText("S/.");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 590, -1, -1));
 
         jButton3.setMnemonic('n');
         jButton3.setText("NUEVO REPORTE");
@@ -309,21 +335,42 @@ public class ReporteDeCompras extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 160, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 670, 160, -1));
 
         jLabel15.setText("4° Si desea un reporte de la compra");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
 
         jLabel17.setText("5° Para crear un nuevo reporte ");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, -1, -1));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, -1, -1));
 
         jLabel18.setText("clic en el boton NUEVO REPORTE");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, -1, -1));
+
+        jLabel19.setText("DESDE");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+
+        txtBoleta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBoletaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtBoleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 120, 30));
+
+        jLabel20.setText("TOTAL GRABADO:");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 570, -1, -1));
+
+        jLabel21.setText("1° Indique un rango de fechas");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+
+        jLabel22.setText("o seleccione la casilla \"COMPRAS");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+
         if (jdcDesde.getDate() != null) {
             if (jdcHasta.getDate() != null) {
                 cargarRangoCompras();
@@ -333,8 +380,8 @@ public class ReporteDeCompras extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(getRootPane(), "INDIQUE FECHA DE INICIO");
-
         }
+
 
     }//GEN-LAST:event_btnMostrarActionPerformed
 
@@ -344,10 +391,10 @@ public class ReporteDeCompras extends javax.swing.JFrame {
             try {
                 int id = Integer.parseInt(tblCompras.getValueAt(fila, 0).toString());
                 cargarDetalleCompra(id);
-                lblTotal.setText("" + sumarTotalDetalles());
+                lblTotal.setText("" + new Farma_inf().Redondear(sumarTotalDetalles()));
                 btnReporte.setEnabled(true);
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());                
+                System.out.println(ex.getMessage());
                 btnReporte.setEnabled(false);
             }
         } else {
@@ -379,7 +426,7 @@ public class ReporteDeCompras extends javax.swing.JFrame {
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         int fila = tblCompras.getSelectedRow();
-        if (fila>=0) {
+        if (fila >= 0) {
             int id = Integer.parseInt(tblCompras.getValueAt(fila, 0).toString());//tambien es el numero de compra
             String provee = String.valueOf(tblCompras.getValueAt(fila, 1).toString());
             String doc = String.valueOf(tblCompras.getValueAt(fila, 2).toString());
@@ -400,6 +447,15 @@ public class ReporteDeCompras extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnReporteActionPerformed
 
+    private void txtBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBoletaActionPerformed
+        if (!txtBoleta.getText().trim().isEmpty()) {
+            cargarNumeroDeCompra(Integer.parseInt(txtBoleta.getText()));
+        } else {
+            JOptionPane.showMessageDialog(getRootPane(), "INGRESE NUMERO DE BOLETA");
+            txtBoleta.requestFocus();
+        }
+    }//GEN-LAST:event_txtBoletaActionPerformed
+
     public double sumarTotalDetalles() {
         int numFilas = tblDetalleCompras.getRowCount();
         double total = 0.0;
@@ -413,6 +469,36 @@ public class ReporteDeCompras extends javax.swing.JFrame {
     public void cargarComprasDelDia(String fecha) {
         limpiarTablaCompras();
         String sql = "SELECT `id_compra`, `nom_provee`, `tipo_doc`, `num_serie`, `num_doc_compra`, `forma_pago`, `fecha_compra`, `hora_compra`,estado FROM `tcompras` WHERE `fecha_compra` = '" + fecha + "'";
+        String datos[] = new String[9];
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString("id_compra");
+                datos[1] = rs.getString("nom_provee");
+                datos[2] = rs.getString("tipo_doc");
+                datos[3] = rs.getString("num_serie");
+                datos[4] = rs.getString("num_doc_compra");
+                datos[5] = rs.getString("forma_pago");
+                datos[6] = rs.getString("fecha_compra");
+                datos[7] = rs.getString("hora_compra");
+                int estado = rs.getInt("estado");
+                if (estado == 0) {
+                    datos[8] = "ACTIVO";
+                } else {
+                    datos[8] = "ANULADO";
+                }
+                modelCompras.addRow(datos);
+            }
+            tblCompras.setModel(modelCompras);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
+        }
+    }
+
+    public void cargarNumeroDeCompra(int numBoleta) {
+        limpiarTablaCompras();
+        String sql = "SELECT `id_compra`, `nom_provee`, `tipo_doc`, `num_serie`, `num_doc_compra`, `forma_pago`, `fecha_compra`, `hora_compra`,estado FROM `tcompras` WHERE `num_doc_compra` = '" + numBoleta + "'";
         String datos[] = new String[9];
         try {
             Statement st = con.createStatement();
@@ -491,7 +577,11 @@ public class ReporteDeCompras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -508,5 +598,6 @@ public class ReporteDeCompras extends javax.swing.JFrame {
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblCompras;
     private javax.swing.JTable tblDetalleCompras;
+    private javax.swing.JTextField txtBoleta;
     // End of variables declaration//GEN-END:variables
 }
