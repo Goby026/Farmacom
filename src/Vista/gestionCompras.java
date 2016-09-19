@@ -930,19 +930,14 @@ public final class gestionCompras extends javax.swing.JFrame {
             int rs = st.executeUpdate(sql);
             if (rs>0) {
                 JOptionPane.showMessageDialog(getRootPane(), "SE ACTUALIZÓ EL PRODUCTO DE LA COMPRA");
+                int cantidadAquitar = Integer.parseInt(tblDetalleCompras.getValueAt(fila, 3).toString());
+                restarStock(idProd, cantidadAquitar);
                 int filaCompra = tblCompras.getSelectedRow();
                 cargarDetalleCompra(Integer.parseInt(tblCompras.getValueAt(filaCompra, 0).toString()));
-            } else {
             }
             st.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
-        }finally{
-            try {
-                con.close();                
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
     }//GEN-LAST:event_btnModificarDetalleCompraActionPerformed
 

@@ -676,7 +676,7 @@ public final class gestionVentas extends javax.swing.JFrame {
                 String concepto = JOptionPane.showInputDialog("INGRESE CONCEPTO DE ANULACIÓN");
                 setConcepto(idVenta, concepto);
                 
-                String sql = "UPDATE `farmacom`.`tdetalleventa` SET `sub_total` = '0' WHERE `tdetalleventa`.`id_venta` =" + idVenta + " ";
+                String sql = "UPDATE `farmacom1`.`tdetalleventa` SET `sub_total` = '0' WHERE `tdetalleventa`.`id_venta` =" + idVenta + " ";
                 //Ejecucion de instrucciones
                 try {
                     Statement st = con.createStatement();
@@ -716,7 +716,7 @@ public final class gestionVentas extends javax.swing.JFrame {
         int cantidad = Integer.parseInt(txtCantidad2.getText());
         double subTotal = Double.parseDouble(txtSubtotal2.getText());
         //UPDATE `farmacom`.`tdetalleventa` SET `id_pro_medi` = '12' WHERE `tdetalleventa`.`id` = 8;
-        String sql = "UPDATE `farmacom`.`tdetalleventa` SET `id_pro_medi` ='"+idProd+"',`cantidad`="+cantidad+",`sub_total`="+subTotal+"  WHERE `tdetalleventa`.`id` = "+id;
+        String sql = "UPDATE `farmacom1`.`tdetalleventa` SET `id_pro_medi` ='"+idProd+"',`cantidad`="+cantidad+",`sub_total`="+subTotal+"  WHERE `tdetalleventa`.`id` = "+id;
         try {
             Statement st =con.createStatement();
             int rs = st.executeUpdate(sql);
