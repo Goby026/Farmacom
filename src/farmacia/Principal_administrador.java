@@ -44,22 +44,21 @@ public class Principal_administrador extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
-        jPanel1 = new javax.swing.JPanel();
-        lbl_id = new javax.swing.JLabel();
-        lbl_user = new javax.swing.JLabel();
-        txt_usu = new javax.swing.JTextField();
-        txt_id = new javax.swing.JTextField();
-        btn_productos = new javax.swing.JButton();
-        btn_clientes = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         btn_usuarios = new javax.swing.JButton();
         btn_proveedores = new javax.swing.JButton();
         btn_tiendas = new javax.swing.JButton();
         btn_gastos = new javax.swing.JButton();
         btn_stock = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         btn_compras = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btn_productos = new javax.swing.JButton();
+        btn_clientes = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lbl_id = new javax.swing.JLabel();
+        lbl_user = new javax.swing.JLabel();
+        txt_usu = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         m_sistema = new javax.swing.JMenu();
         m_config = new javax.swing.JMenuItem();
@@ -110,6 +109,135 @@ public class Principal_administrador extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1920, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1920, 880));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1454973695_sign-up.png"))); // NOI18N
+        jButton1.setText("ASISTENCIA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 130, 70));
+
+        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/folder_who.png"))); // NOI18N
+        btn_usuarios.setText("USUARIOS");
+        btn_usuarios.setEnabled(false);
+        btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuariosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 130, 70));
+
+        btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295253_provider.png"))); // NOI18N
+        btn_proveedores.setText("PROVEEDORES");
+        btn_proveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_proveedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_proveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_proveedoresActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 130, 70));
+
+        btn_tiendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296051_09.png"))); // NOI18N
+        btn_tiendas.setText("LABORATORIOS");
+        btn_tiendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_tiendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_tiendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tiendasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_tiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 130, 70));
+
+        btn_gastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296836_Cash_register.png"))); // NOI18N
+        btn_gastos.setText("GASTOS");
+        btn_gastos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_gastos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_gastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_gastosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_gastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 130, 70));
+
+        btn_stock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297006_20.png"))); // NOI18N
+        btn_stock.setText("STOCK");
+        btn_stock.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_stock.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_stockActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 130, 70));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1461702483_sales_bag_shopping_bargain_retail.png"))); // NOI18N
+        jButton2.setText("VENTAS");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 130, 70));
+
+        btn_compras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297151_empty-shopping-cart.png"))); // NOI18N
+        btn_compras.setText("COMPRAS");
+        btn_compras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_compras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_compras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_comprasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_compras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 130, 70));
+
+        btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295875_packing.png"))); // NOI18N
+        btn_productos.setText("PRODUCTOS");
+        btn_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_productosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 130, 70));
+
+        btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes.png"))); // NOI18N
+        btn_clientes.setText("  CLIENTES");
+        btn_clientes.setToolTipText("");
+        btn_clientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btn_clientes.setBorderPainted(false);
+        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_clientes.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clientesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 130, 70));
+        btn_clientes.getAccessibleContext().setAccessibleName("CLIENTES");
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -127,180 +255,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         txt_id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel1.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 130, -1));
 
-        btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295875_packing.png"))); // NOI18N
-        btn_productos.setText("PRODUCTOS");
-        btn_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_productos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_productosActionPerformed(evt);
-            }
-        });
-
-        btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes.png"))); // NOI18N
-        btn_clientes.setText("  CLIENTES");
-        btn_clientes.setToolTipText("");
-        btn_clientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btn_clientes.setBorderPainted(false);
-        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btn_clientes.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_clientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clientesActionPerformed(evt);
-            }
-        });
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1454973695_sign-up.png"))); // NOI18N
-        jButton1.setText("ASISTENCIA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1461702483_sales_bag_shopping_bargain_retail.png"))); // NOI18N
-        jButton2.setText("VENTAS");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/folder_who.png"))); // NOI18N
-        btn_usuarios.setText("USUARIOS");
-        btn_usuarios.setEnabled(false);
-        btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuariosActionPerformed(evt);
-            }
-        });
-
-        btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295253_provider.png"))); // NOI18N
-        btn_proveedores.setText("PROVEEDORES");
-        btn_proveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_proveedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_proveedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_proveedoresActionPerformed(evt);
-            }
-        });
-
-        btn_tiendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296051_09.png"))); // NOI18N
-        btn_tiendas.setText("LABORATORIOS");
-        btn_tiendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_tiendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_tiendas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_tiendasActionPerformed(evt);
-            }
-        });
-
-        btn_gastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296836_Cash_register.png"))); // NOI18N
-        btn_gastos.setText("GASTOS");
-        btn_gastos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_gastos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_gastos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_gastosActionPerformed(evt);
-            }
-        });
-
-        btn_stock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297006_20.png"))); // NOI18N
-        btn_stock.setText("STOCK");
-        btn_stock.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_stock.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_stock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_stockActionPerformed(evt);
-            }
-        });
-
-        btn_compras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297151_empty-shopping-cart.png"))); // NOI18N
-        btn_compras.setText("COMPRAS");
-        btn_compras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_compras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_compras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_comprasActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fondo_mini1.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
-        escritorio.setLayout(escritorioLayout);
-        escritorioLayout.setHorizontalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(750, 750, 750)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jButton1))
-                    .addComponent(btn_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_compras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_tiendas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(3, 3, 3))
-        );
-        escritorioLayout.setVerticalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btn_clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btn_usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(btn_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140)
-                .addComponent(btn_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(420, 420, 420)
-                .addComponent(btn_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(630, 630, 630)
-                .addComponent(btn_compras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(210, 210, 210)
-                .addComponent(btn_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(350, 350, 350)
-                .addComponent(btn_tiendas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_productos, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_clientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        btn_clientes.getAccessibleContext().setAccessibleName("CLIENTES");
-        escritorio.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_usuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_proveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_tiendas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_gastos, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_stock, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btn_compras, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 5, 420, 40));
 
         m_sistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Monitor-icon.png"))); // NOI18N
         m_sistema.setText("SISTEMA");
@@ -684,17 +639,6 @@ public class Principal_administrador extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -928,9 +872,13 @@ public class Principal_administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
-        GestionAlmacen ga = new GestionAlmacen();
-        escritorio.add(ga);
-        ga.setVisible(true);
+        try {
+            GestionAlmacen ga = new GestionAlmacen();
+            escritorio.add(ga);
+            ga.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Principal_administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem24ActionPerformed
 
     /**
@@ -982,7 +930,6 @@ public class Principal_administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem item_enero;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;

@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import Control.AlmacenControl;
+import Control.ManejadorFechas;
+
 /**
  *
  * @author Gaby
@@ -14,8 +17,10 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     /**
      * Creates new form GestionAlmacen
      */
-    public GestionAlmacen() {
+    public GestionAlmacen() throws Exception {
         initComponents();
+        new AlmacenControl().cargarComboAlmacenes(cmbAlmacen);
+        txtFecha.setText(new ManejadorFechas().getFechaActual());
     }
 
     /**
@@ -86,7 +91,10 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -100,6 +108,11 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jPanel2.add(cmbAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 310, -1));
 
         txtProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProductoKeyReleased(evt);
+            }
+        });
         jPanel2.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 390, -1));
 
         tblProducto.setModel(new javax.swing.table.DefaultTableModel(
@@ -168,7 +181,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 310, 20));
 
         jButton2.setText("MOVER PRODUCTOS");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 400, 390, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 393, 390, 30));
 
         jPanel14.setBackground(new java.awt.Color(102, 102, 102));
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -336,10 +349,18 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("SALIDAS", jPanel4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 760, 520));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 760, 480));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("MOVIMIENTOS - INGRESOS - SALIDAS");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyReleased
+        
+    }//GEN-LAST:event_txtProductoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -347,6 +368,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

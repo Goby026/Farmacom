@@ -53,6 +53,8 @@ public class Almacenes extends javax.swing.JInternalFrame {
         cmbResponsable = new javax.swing.JComboBox();
         btnMostrar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -67,13 +69,13 @@ public class Almacenes extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel11.setText("DIRECCION");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         jLabel12.setText("CIUDAD");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         jLabel13.setText("TELEFONO");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         tblAlmacen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,13 +96,26 @@ public class Almacenes extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblAlmacen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAlmacenMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblAlmacen);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 570, 350));
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, -1));
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 190, -1));
-        getContentPane().add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 190, -1));
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 190, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 570, 310));
+
+        txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 190, -1));
+
+        txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 190, -1));
+
+        txtCiudad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 190, -1));
+
+        txtTelefono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, -1));
 
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,16 +123,16 @@ public class Almacenes extends javax.swing.JInternalFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 190, -1));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 120, -1));
 
         btnNuevo.setText("NUEVO");
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 190, -1));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 120, -1));
 
         btnModificar.setText("MODIFICAR");
-        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 190, -1));
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 120, -1));
 
         btnEliminar.setText("ELIMINAR");
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 190, -1));
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 120, -1));
 
         cmbResponsable.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
         getContentPane().add(cmbResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 190, -1));
@@ -128,10 +143,16 @@ public class Almacenes extends javax.swing.JInternalFrame {
                 btnMostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 190, -1));
+        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 120, -1));
 
         jLabel14.setText("NOMBRE");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        jLabel15.setText("ID-ALMACEN");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 50, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -162,6 +183,21 @@ public class Almacenes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
+    private void tblAlmacenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlmacenMouseClicked
+        try {
+            int fila = tblAlmacen.getSelectedRow();
+            int id = Integer.parseInt(tblAlmacen.getValueAt(fila, 0).toString());
+            Object[] datos = (Object[])new AlmacenControl().CargarAlmacenSeleccionado(id);
+            txtCodigo.setText(""+datos[0]);
+            txtNombre.setText(""+datos[1]);
+            txtDireccion.setText(""+datos[2]);
+            txtCiudad.setText(""+datos[3]);
+            txtTelefono.setText(""+datos[4]);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_tblAlmacenMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEliminar;
@@ -175,10 +211,12 @@ public class Almacenes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable tblAlmacen;
     public javax.swing.JTextField txtCiudad;
+    public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDireccion;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtTelefono;

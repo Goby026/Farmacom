@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -68,6 +69,29 @@ public class AlmacenControl{
             columna[4] = aDAO.listar().get(i).getTelefono();
             columna[5] = aDAO.listar().get(i).getResponsable();
             dtm.addRow(columna);
+        }
+    }
+    
+    public Object CargarAlmacenSeleccionado(int id) throws Exception {
+        Object[] datos = new Object[6];
+        AlmacenDAO adao = new AlmacenDAO();
+        for (Almacen a : adao.listar()) {
+            if (a.getId() == id) {
+                datos[0] = a.getId();
+                datos[1] = a.getNombre();
+                datos[2] = a.getDireccion();
+                datos[3] = a.getCiudad();
+                datos[4] = a.getTelefono();
+                datos[5] = a.getResponsable();
+            }
+        }
+        return datos;
+    }
+    
+    public void cargarComboAlmacenes(JComboBox cmb) throws Exception {
+        AlmacenDAO adao = new AlmacenDAO();
+        for (Almacen a : adao.listar()) {
+            cmb.addItem(a.getNombre());
         }
     }
     

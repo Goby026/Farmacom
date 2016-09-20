@@ -284,7 +284,6 @@ public final class gestionVentas extends javax.swing.JFrame {
         txt_num_venta = new javax.swing.JTextField();
         lblVenta = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -412,12 +411,6 @@ public final class gestionVentas extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 10)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("AYUDA");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -948,7 +941,6 @@ public final class gestionVentas extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbTrabajador1;
     private javax.swing.JDialog frm_buscar_prod;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
