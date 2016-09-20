@@ -1083,7 +1083,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel28MouseClicked
 
     private void txt_nom_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_proveActionPerformed
-        txt_nom_prove.transferFocus();
+        txt_ruc_prove.requestFocus();
     }//GEN-LAST:event_txt_nom_proveActionPerformed
 
     private void txt_nom_proveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nom_proveKeyTyped
@@ -1099,7 +1099,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nom_proveKeyTyped
 
     private void txt_ruc_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ruc_proveActionPerformed
-        txt_ruc_prove.transferFocus();
+        txt_telf_prove.requestFocus();
     }//GEN-LAST:event_txt_ruc_proveActionPerformed
 
     private void txt_ruc_proveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ruc_proveKeyTyped
@@ -1117,7 +1117,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ruc_proveKeyTyped
 
     private void txt_telf_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telf_proveActionPerformed
-        txt_telf_prove.transferFocus();
+        txt_dir_prove.requestFocus();
     }//GEN-LAST:event_txt_telf_proveActionPerformed
 
     private void txt_telf_proveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telf_proveKeyTyped
@@ -1136,11 +1136,11 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_telf_proveKeyTyped
 
     private void txt_dir_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dir_proveActionPerformed
-        txt_dir_prove.transferFocus();
+        txt_email_prove.requestFocus();
     }//GEN-LAST:event_txt_dir_proveActionPerformed
 
     private void txt_email_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_email_proveActionPerformed
-        txt_email_prove.transferFocus();
+        txt_nomcontac_prove.requestFocus();
     }//GEN-LAST:event_txt_email_proveActionPerformed
 
          public int verificarExisteProveedor(String ruc){
@@ -1251,11 +1251,11 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ed_proveeActionPerformed
 
     private void txt_email_prove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_email_prove1ActionPerformed
-       txt_email_prove1.transferFocus();
+       txt_nom_contacto1.requestFocus();
     }//GEN-LAST:event_txt_email_prove1ActionPerformed
 
     private void txt_dir_prove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dir_prove1ActionPerformed
-        txt_dir_prove1.transferFocus();
+        txt_email_prove1.requestFocus();
     }//GEN-LAST:event_txt_dir_prove1ActionPerformed
 
     private void txt_telf_prove1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telf_prove1KeyTyped
@@ -1273,7 +1273,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_telf_prove1KeyTyped
 
     private void txt_telf_prove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telf_prove1ActionPerformed
-       txt_telf_prove1.transferFocus();
+       txt_dir_prove1.requestFocus();
     }//GEN-LAST:event_txt_telf_prove1ActionPerformed
 
     private void txt_ruc_prove1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ruc_prove1KeyTyped
@@ -1291,7 +1291,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_ruc_prove1KeyTyped
 
     private void txt_ruc_prove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ruc_prove1ActionPerformed
-       txt_ruc_prove1.transferFocus();
+       txt_telf_prove1.requestFocus();
     }//GEN-LAST:event_txt_ruc_prove1ActionPerformed
 
     private void txt_nom_prove1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nom_prove1KeyTyped
@@ -1307,7 +1307,7 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nom_prove1KeyTyped
 
     private void txt_nom_prove1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_prove1ActionPerformed
-        txt_nom_prove1.transferFocus();
+        txt_ruc_prove1.requestFocus();
     }//GEN-LAST:event_txt_nom_prove1ActionPerformed
 
     private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
@@ -1339,11 +1339,11 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_buscarMouseClicked
 
     private void txt_nomcontac_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomcontac_proveActionPerformed
-       txt_nomcontac_prove.transferFocus();
+       txt_telfcontac_prove.requestFocus();
     }//GEN-LAST:event_txt_nomcontac_proveActionPerformed
 
     private void txt_telfcontac_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telfcontac_proveActionPerformed
-        // TODO add your handling code here:
+        btn_guardar.doClick();
     }//GEN-LAST:event_txt_telfcontac_proveActionPerformed
 
     private void txt_nomcontac_proveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nomcontac_proveKeyTyped
@@ -1373,11 +1373,11 @@ public final class Reg_proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_telfcontac_proveKeyTyped
 
     private void txt_nom_contacto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_contacto1ActionPerformed
-       txt_nom_contacto1.transferFocus();
+       txt_telf_contacto1.requestFocus();
     }//GEN-LAST:event_txt_nom_contacto1ActionPerformed
 
     private void txt_telf_contacto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telf_contacto1ActionPerformed
-       
+       btn_guardar1.doClick();
     }//GEN-LAST:event_txt_telf_contacto1ActionPerformed
 
     private void txt_nom_contacto1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nom_contacto1KeyTyped

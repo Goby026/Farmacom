@@ -244,7 +244,7 @@ public class Principal_gerente extends javax.swing.JFrame {
         });
         escritorio.add(btn_compras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 130, 70));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/ws_Life_pills_1600x1200 (1).jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fondo_mini1.jpg"))); // NOI18N
         escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 860));
 
         jLabel3.setText("jLabel3");

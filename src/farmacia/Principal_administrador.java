@@ -79,6 +79,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         m_reportes = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         m_cata_clientes = new javax.swing.JMenuItem();
@@ -230,7 +231,7 @@ public class Principal_administrador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/ws_Life_pills_1600x1200 (1).jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/fondo_mini1.jpg"))); // NOI18N
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -463,6 +464,14 @@ public class Principal_administrador extends javax.swing.JFrame {
             }
         });
         m_registros.add(jMenuItem22);
+
+        jMenuItem24.setText("MOVIMIENTOS ALMACEN");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        m_registros.add(jMenuItem24);
 
         jMenuBar1.add(m_registros);
 
@@ -918,6 +927,12 @@ public class Principal_administrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        GestionAlmacen ga = new GestionAlmacen();
+        escritorio.add(ga);
+        ga.setVisible(true);
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -992,6 +1007,7 @@ public class Principal_administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

@@ -52,27 +52,28 @@ public class Almacenes extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         cmbResponsable = new javax.swing.JComboBox();
         btnMostrar = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("ALMACENES");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setText("RESPONSABLE");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
-        jLabel10.setText("NOMBRE");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel10.setText("REGISTRAR ALMACEN");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel11.setText("DIRECCION");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         jLabel12.setText("CIUDAD");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel13.setText("TELEFONO");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
         tblAlmacen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,11 +96,11 @@ public class Almacenes extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(tblAlmacen);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 20, 460, 350));
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 190, -1));
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 190, -1));
-        getContentPane().add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 190, -1));
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 190, -1));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 570, 350));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 190, -1));
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 190, -1));
+        getContentPane().add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 190, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 190, -1));
 
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,19 +108,19 @@ public class Almacenes extends javax.swing.JInternalFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 190, -1));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 190, -1));
 
         btnNuevo.setText("NUEVO");
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 190, -1));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 190, -1));
 
         btnModificar.setText("MODIFICAR");
-        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 190, -1));
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 190, -1));
 
         btnEliminar.setText("ELIMINAR");
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 190, -1));
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 190, -1));
 
         cmbResponsable.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
-        getContentPane().add(cmbResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 190, -1));
+        getContentPane().add(cmbResponsable, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 190, -1));
 
         btnMostrar.setText("MOSTRAR");
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +128,10 @@ public class Almacenes extends javax.swing.JInternalFrame {
                 btnMostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 190, -1));
+        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 190, -1));
+
+        jLabel14.setText("NOMBRE");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,6 +174,7 @@ public class Almacenes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable tblAlmacen;

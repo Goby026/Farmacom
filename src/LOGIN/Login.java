@@ -187,6 +187,7 @@ public class Login extends javax.swing.JFrame implements Runnable {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1451467612_user_male.png"))); // NOI18N
         jLabel1.setText("USUARIO");
 
+        txt_usu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_usu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usuActionPerformed(evt);
@@ -198,6 +199,7 @@ public class Login extends javax.swing.JFrame implements Runnable {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1451467772_lock.png"))); // NOI18N
         jLabel2.setText("PASSWORD");
 
+        txt_pass_usu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_pass_usu.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_pass_usuKeyPressed(evt);

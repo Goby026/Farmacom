@@ -51,7 +51,6 @@ public class Cruces extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -130,9 +129,6 @@ public class Cruces extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("AJUSTE", jPanel7);
 
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jTabbedPane1.addTab("SALIDA", jPanel8);
-
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 300));
 
         pack();
@@ -156,7 +152,6 @@ public class Cruces extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
