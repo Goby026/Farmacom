@@ -88,11 +88,6 @@ public class AlmacenControl{
         return datos;
     }
     
-    public void cargarComboAlmacenes(JComboBox cmb) throws Exception {
-        AlmacenDAO adao = new AlmacenDAO();
-        for (Almacen a : adao.listar()) {
-            cmb.addItem(a.getNombre());
-        }
-    }
+    
     
 }

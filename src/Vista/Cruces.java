@@ -5,17 +5,61 @@
  */
 package Vista;
 
+import Control.Conexion;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Gaby
  */
 public class Cruces extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Cruces
-     */
+    DefaultTableModel model;
+    Connection cc = new Conexion().conectar();
+
     public Cruces() {
         initComponents();
+        titulos();
+    }
+
+    public void titulos() {
+        String[] titulos = {"ID-ALMACEN", "ID-PRODUCTO", "CANTIDAD"};
+        model = new DefaultTableModel(null, titulos);
+        tblDatos.setModel(model);
+    }
+
+    public void buscarProductos(JTable tbl) throws Exception {
+        limpiarTabla(tbl);
+        String datos[] = new String[3];
+        String sql = "select id_pro_medi, stock_pro_medi from tproducto_medicamento";
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = "1";
+                datos[1] = String.valueOf(rs.getInt("id_pro_medi"));
+                datos[2] = rs.getString("stock_pro_medi");
+                model.addRow(datos);
+            }
+            tbl.setModel(model);
+            //tbl_productos.setModel(new DefaultTableModel());
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void limpiarTabla(JTable tbl) {
+        for (int i = 0; i < tbl.getRowCount(); i++) {
+            model.removeRow(i);
+            i -= 1;
+        }
     }
 
     /**
@@ -27,30 +71,10 @@ public class Cruces extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        btnReg = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -58,107 +82,83 @@ public class Cruces extends javax.swing.JInternalFrame {
         setTitle("CRUCES DE MERCADERIA");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel7.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 180, -1));
+        tblDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDatos);
 
-        jButton1.setText("CANCELAR");
-        jPanel7.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 600, -1));
 
-        jLabel1.setText("STOCK");
-        jPanel7.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
-        jPanel7.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 350, -1));
-        jPanel7.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 100, -1));
+        jButton3.setText("mostrarProductos");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
-        jLabel4.setText("PRODUCTO");
-        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
-        jPanel7.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 180, -1));
-        jPanel7.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 100, -1));
-        jPanel7.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 100, -1));
-        jPanel7.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 100, -1));
-
-        jButton2.setText("ACEPTAR");
-        jPanel7.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
-
-        jLabel9.setText("STOCK");
-        jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("DESTINO");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
-
-        jPanel7.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 110, 20));
-
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("NOMBRE DE ALMACEN");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
-
-        jPanel7.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 180, 20));
-
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("VALOR UNITARIO");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel7.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 100, 20));
-
-        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("ORIGEN");
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
-
-        jPanel7.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 110, 20));
-
-        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("CANTIDAD");
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
-
-        jPanel7.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 100, 20));
-
-        jTabbedPane1.addTab("AJUSTE", jPanel7);
-
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 300));
+        btnReg.setText("REGISTRAR EN TABLA PRODUCTOALMACEN");
+        btnReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 530, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            buscarProductos(tblDatos);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
+        try {
+            int numFilas = tblDatos.getRowCount();
+
+            for (int i = 0; i < numFilas; i++) {
+                int idAlmacen = Integer.parseInt(tblDatos.getValueAt(i, 0).toString());
+                int idProducto = Integer.parseInt(tblDatos.getValueAt(i, 1).toString());
+                int cantidad = Integer.parseInt(tblDatos.getValueAt(i, 2).toString());
+                String sql = "INSERT INTO almacenproducto( idalmacen, idproducto, cantidad) VALUES ('" + idAlmacen + "','" + idProducto + "','" + cantidad + "')";
+                Statement st = cc.createStatement();
+                int res = st.executeUpdate(sql);
+                if (res > 0) {
+                    System.out.println("se registro el producto "+idProducto);
+
+                }
+            }
+//            String sql = "INSERT INTO almacenproducto( idalmacen, idproducto, cantidad) VALUES ('" + p + "','" + privi + "')";
+//            Statement st = cc.createStatement();
+//            int res = st.executeUpdate(sql);
+//            if (res > 0) {
+//                JOptionPane.showMessageDialog(null, "PERFIL REGISTRADO");
+//
+//            } else {
+//            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnRegActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JButton btnReg;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDatos;
     // End of variables declaration//GEN-END:variables
 }

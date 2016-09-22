@@ -59,6 +59,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         lbl_user = new javax.swing.JLabel();
         txt_usu = new javax.swing.JTextField();
         txt_id = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         m_sistema = new javax.swing.JMenu();
         m_config = new javax.swing.JMenuItem();
@@ -256,6 +257,14 @@ public class Principal_administrador extends javax.swing.JFrame {
         jPanel1.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 130, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 5, 420, 40));
+
+        jButton3.setText("ProductoAlmacen");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, -1, -1));
 
         m_sistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Monitor-icon.png"))); // NOI18N
         m_sistema.setText("SISTEMA");
@@ -881,6 +890,12 @@ public class Principal_administrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem24ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Cruces c = new Cruces();
+        escritorio.add(c);
+        c.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -930,6 +945,7 @@ public class Principal_administrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem item_enero;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
