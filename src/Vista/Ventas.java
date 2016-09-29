@@ -2,8 +2,6 @@ package Vista;
 
 import Control.Conexion;
 import Control.MyiReportVisor;
-import farmacia.Principal_administrador;
-import farmacia.Reg_cliente;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.MouseInfo;

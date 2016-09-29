@@ -29,7 +29,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     }
 
     public void titulosAdd() {
-        String[] titulos = {"ALMACEN", "PRODUCTO", "CANTIDAD"};
+        String[] titulos = {"DESTINO", "PRODUCTO", "CANTIDAD"};
         modelProductoAdd = new DefaultTableModel(null, titulos);
         tblAgregadosParaMover.setModel(modelProductoAdd);
     }
@@ -58,16 +58,12 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         txtFecha2 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        btnMoverProducto = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblAgregadosParaMover = new javax.swing.JTable();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        txaConcepto = new javax.swing.JTextArea();
         btnAgregar = new javax.swing.JButton();
         cbxTodo = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
@@ -182,16 +178,6 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
 
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 250, 20));
 
-        jPanel8.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel19.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("CONCEPTO");
-        jPanel8.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
-
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 250, 20));
-
         jPanel14.setBackground(new java.awt.Color(102, 102, 102));
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -200,15 +186,17 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jPanel14.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 60, 20));
+
+        txtFecha2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel2.add(txtFecha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 100, -1));
 
-        jButton4.setText("MOVER PRODUCTOS");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnMoverProducto.setText("MOVER PRODUCTOS");
+        btnMoverProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnMoverProductoActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 580, 300, -1));
+        jPanel2.add(btnMoverProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 520, 300, -1));
 
         tblAgregadosParaMover.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,14 +211,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         ));
         jScrollPane7.setViewportView(tblAgregadosParaMover);
 
-        jPanel2.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 720, 110));
-
-        txaConcepto.setColumns(20);
-        txaConcepto.setLineWrap(true);
-        txaConcepto.setRows(5);
-        jScrollPane8.setViewportView(txaConcepto);
-
-        jPanel2.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 300, 100));
+        jPanel2.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 720, 150));
 
         btnAgregar.setText("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +219,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 300, -1));
+        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 300, -1));
 
         cbxTodo.setText("TODO");
         cbxTodo.addActionListener(new java.awt.event.ActionListener() {
@@ -415,7 +396,7 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("SALIDAS", jPanel4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 760, 650));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 770, 590));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("MOVIMIENTOS - INGRESOS - SALIDAS");
@@ -462,18 +443,34 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnMoverProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoverProductoActionPerformed
+        
         int numFilas = tblAgregadosParaMover.getRowCount();
+        AlmacenProducto ap = new AlmacenProducto();
+        Almacen a = new Almacen();
+        String nomAlmacen;
+        AlmacenProductoDAO apdao = new AlmacenProductoDAO();
         if (numFilas >= 0) {
-            try {
-                new GestionAlmacenControl().registrarProductoAlmacen(tblAgregadosParaMover);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+            for (int i = 0; i < numFilas; i++) {
+                try {
+                    nomAlmacen = tblAgregadosParaMover.getValueAt(i, 0).toString();
+                    a.setNombre(nomAlmacen);
+                    ap.setIdAlmacen(new GestionAlmacenControl().getIdAlmacen(a));
+                    ap.setIdProducto(new Farma_inf().getIdProducto(tblAgregadosParaMover.getValueAt(i, 1).toString()));
+                    ap.setCantidad(Integer.parseInt(tblAgregadosParaMover.getValueAt(i, 2).toString()));
+                    if (new GestionAlmacenControl().existeProductoEnAlmacen(ap)) {
+                        apdao.modificar(ap);
+                    } else {
+                        apdao.Registrar(ap);                        
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         } else {
             JOptionPane.showMessageDialog(getRootPane(), "AGREGUE POR LO MENOS UN MOVIMIENTO DE PRODUCTOS");
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnMoverProductoActionPerformed
 
     private void cbxTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTodoActionPerformed
         int fila = tblProducto.getSelectedRow();
@@ -493,11 +490,11 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnMoverProducto;
     private javax.swing.JCheckBox cbxTodo;
     private javax.swing.JComboBox cmbAlmacen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -505,7 +502,6 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -530,14 +526,12 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
@@ -550,7 +544,6 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTable tblAgregadosParaMover;
     private javax.swing.JTable tblProducto;
-    private javax.swing.JTextArea txaConcepto;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtFecha1;
     private javax.swing.JTextField txtFecha2;

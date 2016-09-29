@@ -6,9 +6,9 @@
 package LOGIN;
 
 import Control.Conexion;
-import farmacia.Principal_administrador;
-import farmacia.Principal_gerente;
-import farmacia.Principal_vendedor;
+import Vista.Principal_administrador;
+import Vista.Principal_gerente;
+import Vista.Principal_vendedor;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.KeyEvent;

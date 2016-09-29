@@ -7,7 +7,6 @@ package Vista;
 
 import Control.Conexion;
 import Control.ManejadorFechas;
-import farmacia.Reg_proveedor;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Point;

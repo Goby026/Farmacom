@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package farmacia;
+package Vista;
 import Control.Conexion;
 import Control.ManejadorFechas;
 import Vista.Farma_inf;
@@ -31,7 +31,7 @@ import org.codehaus.groovy.runtime.DefaultGroovyMethods;
  *
  * @author Gaby
  */
-public final class Reg_producto extends javax.swing.JFrame {
+public final class Reg_productoAdmin extends javax.swing.JFrame {
 
     int posx, posy;
     Conexion con = new Conexion();
@@ -41,7 +41,7 @@ public final class Reg_producto extends javax.swing.JFrame {
     double PrecUnitario,ProdCompleto;
     String Codigo, Nombre,Concentracion,Formato,FormatoSimplificado,Presentacion,FecVencimiento,NumRegSanitario,Proveedor;
     
-    public Reg_producto() {
+    public Reg_productoAdmin() {
        // setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
@@ -61,15 +61,15 @@ public final class Reg_producto extends javax.swing.JFrame {
         String[] cabecera1 = {"ID", "CODIGO","NOMBRE", "CONCENTRACION","PRESENTACIÓN","LABORATORIO","LOTE","P. VENTA","STOCK"};
         table1 = new DefaultTableModel(null, cabecera1);
         tbl_productos.setModel(table1);
-        tbl_productos.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(1).setPreferredWidth(10);
-        tbl_productos.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbl_productos.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tbl_productos.getColumnModel().getColumn(4).setPreferredWidth(50);
-        tbl_productos.getColumnModel().getColumn(5).setPreferredWidth(50);
-        tbl_productos.getColumnModel().getColumn(6).setPreferredWidth(50);
-        tbl_productos.getColumnModel().getColumn(7).setPreferredWidth(50);
-        tbl_productos.getColumnModel().getColumn(8).setPreferredWidth(20);
+//        tbl_productos.getColumnModel().getColumn(0).setPreferredWidth(10);
+//        tbl_productos.getColumnModel().getColumn(1).setPreferredWidth(10);
+//        tbl_productos.getColumnModel().getColumn(2).setPreferredWidth(200);
+//        tbl_productos.getColumnModel().getColumn(3).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(4).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(5).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(6).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(7).setPreferredWidth(50);
+//        tbl_productos.getColumnModel().getColumn(8).setPreferredWidth(20);
      }
     
     public void bloquear(){
@@ -79,8 +79,10 @@ public final class Reg_producto extends javax.swing.JFrame {
     
     public void desbloquear(){
         btn_modify.setEnabled(true);
-        btn_delete.setEnabled(true);
+        btn_delete.setEnabled(false);
     }
+    
+    
     
     public void cargarProductos() {
         String datos[] = new String[9];
@@ -168,7 +170,7 @@ public final class Reg_producto extends javax.swing.JFrame {
                                         txtLote.requestFocus();
                                     }
                                     } else {
-                                        JOptionPane.showMessageDialog(frm_nuevo.getRootPane(), "INGRESE PRECIO DE BLISTER");
+                                        JOptionPane.showMessageDialog(frm_nuevo.getRootPane(), "INGRESE REGISTRO SANITARIO");
                                         txtPrecioBlister.requestFocus();
                                     }
                             } else {
@@ -307,7 +309,7 @@ public final class Reg_producto extends javax.swing.JFrame {
     public void modificar_producto() {
         int fila = tbl_productos.getSelectedRow();
         int codigo = Integer.parseInt(tbl_productos.getValueAt(fila, 0).toString());
-        String sql = "SELECT `id_pro_medi`, `cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, lote,`nom_form_farm_pro_medi`, `nom_form_farm_simplif_pro_medi`, `presentacion_pro_medi`, `proveedor`, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`, `provee_labo_pro_medi`, prec_venta, precio_blister, `stock_pro_medi` FROM `tproducto_medicamento` WHERE id_pro_medi =" + codigo;
+        String sql = "SELECT `id_pro_medi`, `cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, lote,`nom_form_farm_pro_medi`, `nom_form_farm_simplif_pro_medi`, `presentacion_pro_medi`,`fecha_venc_pro_medi`, `fec_ingreso_prod`, `provee_labo_pro_medi`, prec_venta, `precio_blister`, `stock_pro_medi` FROM `tproducto_medicamento` WHERE id_pro_medi =" + codigo;
 
         try {
             Statement st = cc.createStatement();
@@ -320,16 +322,15 @@ public final class Reg_producto extends javax.swing.JFrame {
                // txtModFormato.setText(rs.getString("nom_form_farm_pro_medi"));
                 //txtModFormatoSimplificado.setText(rs.getString("nom_form_farm_simplif_pro_medi"));
                 txtModPresentacion.setText(rs.getString("presentacion_pro_medi"));
-                
                 //txtModFraccion.setText(rs.getString("fraccion_pro_medi"));
                 String Fec = rs.getString("fecha_venc_pro_medi");
                 Date date = null;
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 date = sdf.parse(Fec);
-                txtModFecVencimiento.setDate(date);                
+                txtModFecVencimiento.setDate(date);
+                txtModPrecioBlister.setText(rs.getString("precio_blister"));
                 txtModProveedor.setText(rs.getString("provee_labo_pro_medi"));
                 txtModPrecVenta.setText(rs.getString("prec_venta"));
-                txtModPrecioBlister.setText(rs.getString("precio_blister"));
                 txtModStock.setText(rs.getString("stock_pro_medi"));
                 txtModLote.setText(rs.getString("lote"));
             }
@@ -366,15 +367,14 @@ public void actualizarProductoEnBD(){
         Date date = txtModFecVencimiento.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(date);
-        double  prec_blister = Double.parseDouble(txtModPrecioBlister.getText());
+        //int  fraccion = Integer.parseInt(txtModFraccion.getText());
         String prove = txtModProveedor.getText();
-        String labo = cmbModificarLaboratorio.getSelectedItem().toString();
-        //String reg_san = txtModNumRegSanitario.getText();
+        double precio_blister = Double.parseDouble(txtModPrecioBlister.getText());
         double prec_uni = Double.parseDouble(txtModPrecVenta.getText());
         int stock = Integer.parseInt(txtModStock.getText());
        
 
-        String sql = "UPDATE `tproducto_medicamento` SET `cod_prod`= '"+codigo+"',`nom_pro_medi`='"+nombre+"',`concentracion_pro_medi`='"+concentracion+"',`presentacion_pro_medi`='"+presentacion+"', proveedor = '"+labo+"',`fecha_venc_pro_medi`= '"+fecha+"',`precio_blister`='"+prec_blister+"',lote='"+lote+"',`provee_labo_pro_medi`='"+prove+"',`prec_venta`="+prec_uni+",`stock_pro_medi`="+stock+" WHERE  id_pro_medi = " + idprod;
+        String sql = "UPDATE `tproducto_medicamento` SET `cod_prod`= '"+codigo+"',`nom_pro_medi`='"+nombre+"',`concentracion_pro_medi`='"+concentracion+"',`presentacion_pro_medi`='"+presentacion+"',`fecha_venc_pro_medi`= '"+fecha+"',lote='"+lote+"',`provee_labo_pro_medi`='"+prove+"',`prec_venta`="+prec_uni+",precio_blister="+precio_blister+",`stock_pro_medi`="+stock+" WHERE  id_pro_medi = " + idprod;
         try {
             Statement st = cc.createStatement();
             int rs = st.executeUpdate(sql);
@@ -481,7 +481,6 @@ public void actualizarProductoEnBD(){
         llbl_pie = new javax.swing.JLabel();
 
         frm_modificar.setBounds(new java.awt.Rectangle(500, 100, 717, 535));
-        frm_modificar.setResizable(false);
         frm_modificar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel47.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -510,7 +509,7 @@ public void actualizarProductoEnBD(){
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 2, true));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(txtModFecVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 260, 30));
+        jPanel4.add(txtModFecVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 250, 30));
 
         cmb_provee.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
         cmb_provee.addActionListener(new java.awt.event.ActionListener() {
@@ -518,13 +517,13 @@ public void actualizarProductoEnBD(){
                 cmb_proveeActionPerformed(evt);
             }
         });
-        jPanel4.add(cmb_provee, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 110, -1));
+        jPanel4.add(cmb_provee, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 110, -1));
 
         txtModProveedor.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txtModProveedor.setForeground(new java.awt.Color(0, 102, 255));
         txtModProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModProveedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
-        jPanel4.add(txtModProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 130, -1));
+        jPanel4.add(txtModProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 130, -1));
 
         jLabel27.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(0, 0, 102));
@@ -535,12 +534,13 @@ public void actualizarProductoEnBD(){
         txtModStock.setForeground(new java.awt.Color(0, 102, 255));
         txtModStock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtModStock.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
+        txtModStock.setEnabled(false);
         txtModStock.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtModStockKeyTyped(evt);
             }
         });
-        jPanel4.add(txtModStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 255, -1));
+        jPanel4.add(txtModStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 255, -1));
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 0, 102));
@@ -561,7 +561,7 @@ public void actualizarProductoEnBD(){
                 txtModPrecVentaKeyTyped(evt);
             }
         });
-        jPanel4.add(txtModPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, 255, -1));
+        jPanel4.add(txtModPrecVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 255, -1));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 102));
@@ -582,7 +582,7 @@ public void actualizarProductoEnBD(){
                 txtModPrecioBlisterActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModPrecioBlister, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 255, -1));
+        jPanel4.add(txtModPrecioBlister, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 255, -1));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 102));
@@ -603,7 +603,7 @@ public void actualizarProductoEnBD(){
                 txtModPresentacionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 255, -1));
+        jPanel4.add(txtModPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 255, -1));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 102));
@@ -619,7 +619,7 @@ public void actualizarProductoEnBD(){
                 txtModConcentracionActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModConcentracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 255, -1));
+        jPanel4.add(txtModConcentracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 255, -1));
 
         jLabel30.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(0, 0, 102));
@@ -635,7 +635,7 @@ public void actualizarProductoEnBD(){
                 txtModNombreActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 255, -1));
+        jPanel4.add(txtModNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 255, -1));
 
         jLabel29.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 0, 102));
@@ -647,7 +647,7 @@ public void actualizarProductoEnBD(){
         txt_id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_id.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txt_id.setEnabled(false);
-        jPanel4.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 80, -1));
+        jPanel4.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 80, -1));
 
         jLabel42.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(0, 0, 102));
@@ -663,7 +663,7 @@ public void actualizarProductoEnBD(){
                 txtModCodigoActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 255, -1));
+        jPanel4.add(txtModCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 255, -1));
 
         btnModCancelar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btnModCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete.png"))); // NOI18N
@@ -673,7 +673,7 @@ public void actualizarProductoEnBD(){
                 btnModCancelarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnModCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 150, 50));
+        jPanel4.add(btnModCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 150, 50));
 
         jLabel26.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 0, 102));
@@ -689,7 +689,7 @@ public void actualizarProductoEnBD(){
                 txtModLoteActionPerformed(evt);
             }
         });
-        jPanel4.add(txtModLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 255, -1));
+        jPanel4.add(txtModLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 255, -1));
 
         cmbModificarLaboratorio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NULL" }));
         cmbModificarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
@@ -697,7 +697,7 @@ public void actualizarProductoEnBD(){
                 cmbModificarLaboratorioActionPerformed(evt);
             }
         });
-        jPanel4.add(cmbModificarLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 250, -1));
+        jPanel4.add(cmbModificarLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 250, -1));
 
         jLabel28.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(0, 0, 102));
@@ -712,13 +712,12 @@ public void actualizarProductoEnBD(){
                 btnModActualizarActionPerformed(evt);
             }
         });
-        jPanel4.add(btnModActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 150, 50));
+        jPanel4.add(btnModActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 150, 50));
 
         frm_modificar.getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 710, 450));
 
         frm_nuevo.setBackground(new java.awt.Color(255, 255, 255));
         frm_nuevo.setBounds(new java.awt.Rectangle(500, 100, 735, 500));
-        frm_nuevo.setResizable(false);
         frm_nuevo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel46.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -1002,6 +1001,7 @@ public void actualizarProductoEnBD(){
         btn_delete.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/delete.png"))); // NOI18N
         btn_delete.setText("ELIMINAR");
+        btn_delete.setEnabled(false);
         btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_deleteActionPerformed(evt);
@@ -1119,9 +1119,23 @@ public void actualizarProductoEnBD(){
         } catch (SQLException ex) {
             Logger.getLogger(Reg_producto.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+//        frm_modificar.setVisible(true);
+//        modificar_producto();
+//        cargarproveedorModificar();
     }//GEN-LAST:event_btn_modifyActionPerformed
 
+    public void cargarLaboratorio(JComboBox cmb) throws SQLException{
+        LaboratorioDAO ldao = new LaboratorioDAO();
+        for (Laboratorio l : ldao.listar()) {
+            cmb.addItem(l.getNombre());
+        }
+    }
+    
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
+//        frm_nuevo.setVisible(true);
+//        cargarproveedor();
+//        txtNewProd.requestFocus();
         try {
             frm_nuevo.setVisible(true);
             cargarproveedor();
@@ -1226,12 +1240,11 @@ public void actualizarProductoEnBD(){
     }//GEN-LAST:event_txtNewConcentracionActionPerformed
 
     private void txtNewPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPresentacionActionPerformed
-       txtLote.requestFocus();
+       txtPrecioBlister.requestFocus();
     }//GEN-LAST:event_txtNewPresentacionActionPerformed
 
     private void txtPrecioBlisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioBlisterActionPerformed
        txtNewStock.requestFocus();
-             
     }//GEN-LAST:event_txtPrecioBlisterActionPerformed
 
     private void txtNewPrecVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPrecVentaActionPerformed
@@ -1455,14 +1468,62 @@ public void actualizarProductoEnBD(){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Reg_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reg_productoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Reg_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reg_productoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Reg_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reg_productoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reg_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reg_productoAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1483,7 +1544,7 @@ public void actualizarProductoEnBD(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reg_producto().setVisible(true);
+                new Reg_productoAdmin().setVisible(true);
             }
         });
     }
@@ -1571,7 +1632,6 @@ public void actualizarProductoEnBD(){
         String nomProd = txtNewNombre.getText();
         String concentracion = txtNewConcentracion.getText();
         String presentacion = txtNewPresentacion.getText();
-        String labo = cmb_laboratorio.getSelectedItem().toString();
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
         Date dia = txt_fecha.getDate();
         String fecha_ingreso = new ManejadorFechas().getFechaActualMySQL();
@@ -1581,7 +1641,7 @@ public void actualizarProductoEnBD(){
         double precUni = Double.parseDouble(txtNewPrecVenta.getText());
         double prec_blister = Double.parseDouble(txtPrecioBlister.getText());
         int stock = Integer.parseInt(txtNewStock.getText());
-        String sql = "INSERT INTO `tproducto_medicamento`(`cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,proveedor,lote, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`,`provee_labo_pro_medi`, `prec_venta`,`precio_blister`, `stock_pro_medi`, `id_contac`, `id_categoria`) VALUES ('"+idprod+"','"+nomProd+"','"+concentracion+"','"+presentacion+"','"+labo+"','"+lote+"','"+fecha1+"','"+fecha_ingreso+"','0','"+proveedor+"','"+precUni+"','"+prec_blister+"','"+stock+"',1,6)";
+        String sql = "INSERT INTO `tproducto_medicamento`(`cod_prod`, `nom_pro_medi`, `concentracion_pro_medi`, `presentacion_pro_medi`,lote, `fecha_venc_pro_medi`, `fec_ingreso_prod`, `num_reg_sanit_pro_medi`,`provee_labo_pro_medi`, `prec_venta`,`precio_blister`, `stock_pro_medi`, `id_contac`, `id_categoria`) VALUES ('"+idprod+"','"+nomProd+"','"+concentracion+"','"+presentacion+"','"+lote+"','"+fecha1+"','"+fecha_ingreso+"','0','"+proveedor+"','"+precUni+"','"+prec_blister+"','"+stock+"',1,6)";
         try {
             Statement st = cc.createStatement();
             int rs = st.executeUpdate(sql);
@@ -1618,13 +1678,6 @@ public void actualizarProductoEnBD(){
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
-        }
-    }
-    
-    public void cargarLaboratorio(JComboBox cmb) throws SQLException{
-        LaboratorioDAO ldao = new LaboratorioDAO();
-        for (Laboratorio l : ldao.listar()) {
-            cmb.addItem(l.getNombre());
         }
     }
     

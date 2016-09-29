@@ -2,7 +2,8 @@ package Control;
 
 import Vista.Almacen;
 import Vista.AlmacenDAO;
-import Vista.Farma_inf;
+import Vista.AlmacenProducto;
+import Vista.AlmacenProductoDAO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,15 +17,18 @@ public class GestionAlmacenControl {
     Connection cc = new Conexion().conectar();
     DefaultTableModel model;
 
+    public GestionAlmacenControl() {
+    }
+
     public void cargarComboAlmacenes(JComboBox cmb) throws Exception {
         AlmacenDAO adao = new AlmacenDAO();
         for (Almacen a : adao.listar()) {
             cmb.addItem(a.getNombre());
         }
     }
-    
-    public void titulosTablaProductos(JTable tbl){
-        String titulos[] = {"ID","NOMBRE","ALMACEN","STOCK"};
+
+    public void titulosTablaProductos(JTable tbl) {
+        String titulos[] = {"ID", "NOMBRE", "ALMACEN", "STOCK"};
         model = new DefaultTableModel(null, titulos);
         tbl.setModel(model);
     }
@@ -61,39 +65,32 @@ public class GestionAlmacenControl {
             i -= 1;
         }
     }
-    
-    public int getIdAlmacen(Almacen al) throws SQLException{
+
+    public int getIdAlmacen(Almacen al) throws SQLException {
         AlmacenDAO adao = new AlmacenDAO();
-        for (Almacen a: adao.listar()) {
+        for (Almacen a : adao.listar()) {
             if (a.getNombre().equals(al.getNombre())) {
                 return a.getId();
             }
         }
         return 0;
     }
-    
-    public boolean registrarProductoAlmacen(JTable tbl) throws Exception {
-        int numFilas = tbl.getRowCount();
-        Almacen almacen = new Almacen();
-        for (int i = 0; i < numFilas; i++) {
-            try {                
-                almacen.setNombre(tbl.getValueAt(i, 0).toString());
-                int idAlmacen = getIdAlmacen(almacen);
-                int idProd = new Farma_inf().getIdProducto(tbl.getValueAt(i, 1).toString());
-                int cant = Integer.parseInt(tbl.getValueAt(i, 2).toString());
-                String sql = "INSERT INTO almacenproducto(idalmacen, idproducto, cantidad) VALUES (" + idAlmacen + " ," + idProd + "," + cant + ")";
-                Statement st = cc.createStatement();
-                int rs = st.executeUpdate(sql);
-                if (rs > 0) {
-                    System.out.println("Movimiento registrado");
+
+    //comprobar si existe el almacen en la tabla
+    public boolean existeProductoEnAlmacen(AlmacenProducto aprod) throws Exception {
+        try {
+            AlmacenProductoDAO apdao = new AlmacenProductoDAO();
+            for (AlmacenProducto ap : apdao.listar()) {
+                if (ap.getIdAlmacen()==aprod.getIdAlmacen() && ap.getIdProducto() == aprod.getIdProducto()) {
+                    return true;
                 }
-            } catch (Exception e) {
-                throw e;
             }
+        } catch (Exception e) {
+            throw e;
         }
         return false;
     }
-    
+
 //    private void restarStock() throws Exception {
 //        int numFilas = tbl.getRowCount();
 //        try {

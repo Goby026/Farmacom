@@ -1,4 +1,4 @@
-package farmacia;
+package Vista;
 
 import Control.Conexion;
 import Control.MyiReportVisor;
