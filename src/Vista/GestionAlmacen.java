@@ -5,9 +5,15 @@
  */
 package Vista;
 
+import Control.Conexion;
 import Control.GestionAlmacenControl;
 import Control.ManejadorFechas;
+import Modelo.Movimiento;
+import Modelo.MovimientoDAO;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,19 +25,45 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionAlmacen extends javax.swing.JInternalFrame {
 
-    DefaultTableModel modelProductoAdd;
+    Conexion con = new Conexion();
+    Connection cc = con.conectar();
+    DefaultTableModel modelProductoIngreso;
+    DefaultTableModel modelProductoSalida;
+    DefaultTableModel modelAddIngreso;
+    DefaultTableModel modelAddSalida;
 
     public GestionAlmacen() throws Exception {
         initComponents();
-        new GestionAlmacenControl().cargarComboAlmacenes(cmbAlmacen);
-        txtFecha2.setText(new ManejadorFechas().getFechaActual());
-        titulosAdd();
+        txtFechaEntrada.setText(new ManejadorFechas().getFechaActual());
+        txtFechaSalida.setText(new ManejadorFechas().getFechaActual());
+        titulosProductosIngreso();
+        titulosProductosSalida();
+        titulosAddIngreso();
+        titulosAddSalida();
     }
 
-    public void titulosAdd() {
-        String[] titulos = {"DESTINO", "PRODUCTO", "CANTIDAD"};
-        modelProductoAdd = new DefaultTableModel(null, titulos);
-        tblAgregadosParaMover.setModel(modelProductoAdd);
+    public void titulosProductosIngreso() {
+        String[] titulos = {"#ID", "PRODUCTO", "CONCENTRACION", "PRESENTACION", "PROVEEDOR", "STOCK ACTUAL", "PRECIO"};
+        modelProductoIngreso = new DefaultTableModel(null, titulos);
+        tblProductoIngreso.setModel(modelProductoIngreso);
+    }
+
+    public void titulosAddIngreso() {
+        String[] titulos = {"#ID", "PRODUCTO", "CANTIDAD", "CONCEPTO", "FECHA"};
+        modelAddIngreso = new DefaultTableModel(null, titulos);
+        tblAddIgresos.setModel(modelAddIngreso);
+    }
+
+    public void titulosProductosSalida() {
+        String[] titulos = {"#ID", "PRODUCTO", "CONCENTRACION", "PRESENTACION", "PROVEEDOR", "STOCK ACTUAL", "PRECIO"};
+        modelProductoSalida = new DefaultTableModel(null, titulos);
+        tblProductoSalida.setModel(modelProductoSalida);
+    }
+
+    public void titulosAddSalida() {
+        String[] titulos = {"#ID", "PRODUCTO", "CANTIDAD", "CONCEPTO", "FECHA"};
+        modelAddSalida = new DefaultTableModel(null, titulos);
+        tblAddSalidas.setModel(modelAddSalida);
     }
 
     /**
@@ -44,206 +76,76 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        txtNumMovimiento = new javax.swing.JTextField();
-        cmbAlmacen = new javax.swing.JComboBox();
-        txtProducto = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblProducto = new javax.swing.JTable();
-        txtUnidades = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        txtFecha2 = new javax.swing.JTextField();
-        btnMoverProducto = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tblAgregadosParaMover = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
-        cbxTodo = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         txtIngresoProducto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProductoIngreso = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtFechaEntrada = new javax.swing.JTextField();
+        btnAddIngreso = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblAddIgresos = new javax.swing.JTable();
         jPanel15 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        txtCantidadIngreso = new javax.swing.JTextField();
+        btnRegistrarIngreso = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txaConceptoIngreso = new javax.swing.JTextArea();
+        btnQuitarAddIngreso = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        txtIngresoProducto1 = new javax.swing.JTextField();
+        txtProductoSalida = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblProductoSalida = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        txtFecha1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtFechaSalida = new javax.swing.JTextField();
+        btnAddSalida = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblAddSalidas = new javax.swing.JTable();
         jPanel17 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        txtCantidadSalida = new javax.swing.JTextField();
+        btnRegistrarSalida = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaConceptoSalida = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("MOVIMIENTOS DE ALMACEN");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel11.setText("N° MOVIMIENTO");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
-        txtNumMovimiento.setEditable(false);
-        txtNumMovimiento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtNumMovimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 50, -1));
-
-        jPanel2.add(cmbAlmacen, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 300, -1));
-
-        txtProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtProducto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtProductoKeyReleased(evt);
-            }
-        });
-        jPanel2.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 390, -1));
-
-        tblProducto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblProducto);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 720, 130));
-
-        txtUnidades.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 140, -1));
-
-        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("PRODUCTO");
-        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, -1, -1));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 390, 20));
-
-        jPanel6.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("UNIDADES");
-        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, -1, -1));
-
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 250, 20));
-
-        jPanel7.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel18.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("NOMBRE DE ALMACEN DESTINO");
-        jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 250, 20));
-
-        jPanel14.setBackground(new java.awt.Color(102, 102, 102));
-        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("FECHA");
-        jPanel14.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 60, 20));
-
-        txtFecha2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel2.add(txtFecha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 100, -1));
-
-        btnMoverProducto.setText("MOVER PRODUCTOS");
-        btnMoverProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoverProductoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnMoverProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 520, 300, -1));
-
-        tblAgregadosParaMover.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane7.setViewportView(tblAgregadosParaMover);
-
-        jPanel2.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 720, 150));
-
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 300, -1));
-
-        cbxTodo.setText("TODO");
-        cbxTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxTodoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(cbxTodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, -1, -1));
-
-        jTabbedPane1.addTab("MOVIMIENTOS", jPanel2);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel10.setBackground(new java.awt.Color(51, 102, 255));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("PRODUCTO");
         jPanel10.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 90, 20));
-        jPanel3.add(txtIngresoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 330, 20));
+        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 120, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        txtIngresoProducto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIngresoProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIngresoProductoKeyReleased(evt);
+            }
+        });
+        jPanel3.add(txtIngresoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 330, 30));
+
+        tblProductoIngreso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -254,9 +156,9 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblProductoIngreso);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 720, 150));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 960, 180));
 
         jPanel11.setBackground(new java.awt.Color(51, 102, 255));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -265,13 +167,20 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jLabel22.setText("FECHA");
         jPanel11.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 60, 20));
-        jPanel3.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 100, -1));
+        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, 60, 20));
 
-        jButton1.setText("SELECCIONAR");
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, 220, -1));
+        txtFechaEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtFechaEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 20, 100, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        btnAddIngreso.setText("AGREGAR");
+        btnAddIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddIngresoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnAddIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 390, 270, 30));
+
+        tblAddIgresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -282,18 +191,18 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane5.setViewportView(tblAddIgresos);
 
-        jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 720, 150));
+        jPanel3.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 960, 190));
 
         jPanel15.setBackground(new java.awt.Color(51, 102, 255));
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("CONCEPTO");
-        jPanel15.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, -1));
+        jPanel15.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, -1, -1));
 
-        jPanel3.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 150, 20));
+        jPanel3.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 510, 20));
 
         jPanel16.setBackground(new java.awt.Color(51, 102, 255));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -302,17 +211,35 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jLabel27.setText("UNIDADES");
         jPanel16.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, -1));
 
-        jPanel3.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 150, 20));
-        jPanel3.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 100, -1));
+        jPanel3.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 150, 20));
 
-        jButton5.setText("REGISTRAR INGRESO");
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 590, -1, -1));
+        txtCantidadIngreso.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        txtCantidadIngreso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtCantidadIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 150, 50));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane9.setViewportView(jTextArea2);
+        btnRegistrarIngreso.setText("REGISTRAR INGRESO");
+        btnRegistrarIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarIngresoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnRegistrarIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 630, 270, 30));
 
-        jPanel3.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
+        txaConceptoIngreso.setColumns(20);
+        txaConceptoIngreso.setRows(5);
+        jScrollPane9.setViewportView(txaConceptoIngreso);
+
+        jPanel3.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 510, 90));
+
+        btnQuitarAddIngreso.setBackground(new java.awt.Color(204, 0, 0));
+        btnQuitarAddIngreso.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuitarAddIngreso.setText("X");
+        btnQuitarAddIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarAddIngresoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnQuitarAddIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, 70, -1));
 
         jTabbedPane1.addTab("INGRESOS", jPanel3);
 
@@ -323,12 +250,19 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
 
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("PRODUCTO");
-        jPanel12.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        jPanel12.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
 
         jPanel4.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 90, 20));
-        jPanel4.add(txtIngresoProducto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 350, 20));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        txtProductoSalida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProductoSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProductoSalidaKeyReleased(evt);
+            }
+        });
+        jPanel4.add(txtProductoSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 350, 20));
+
+        tblProductoSalida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -339,9 +273,9 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        jScrollPane4.setViewportView(tblProductoSalida);
 
-        jPanel4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 670, 130));
+        jPanel4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 930, 200));
 
         jPanel13.setBackground(new java.awt.Color(204, 51, 0));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -350,13 +284,20 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jLabel24.setText("FECHA");
         jPanel13.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel4.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 60, 20));
-        jPanel4.add(txtFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 100, -1));
+        jPanel4.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 60, 20));
 
-        jButton3.setText("SELECCIONAR");
-        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 170, -1));
+        txtFechaSalida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel4.add(txtFechaSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 100, -1));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        btnAddSalida.setText("SELECCIONAR");
+        btnAddSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddSalidaActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnAddSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 400, 170, -1));
+
+        tblAddSalidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -367,19 +308,18 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane6.setViewportView(jTable4);
+        jScrollPane6.setViewportView(tblAddSalidas);
 
-        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 500, 150));
+        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 930, 150));
 
         jPanel17.setBackground(new java.awt.Color(204, 51, 0));
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("CONCEPTO");
-        jPanel17.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, -1));
+        jPanel17.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, -1, -1));
 
-        jPanel4.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 150, 20));
-        jPanel4.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 520, -1));
+        jPanel4.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 400, 20));
 
         jPanel18.setBackground(new java.awt.Color(204, 51, 0));
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -388,52 +328,163 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         jLabel29.setText("UNIDADES");
         jPanel18.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, -1, -1));
 
-        jPanel4.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 150, 20));
-        jPanel4.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 100, -1));
+        jPanel4.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 150, 20));
 
-        jButton6.setText("REGISTRAR SALIDA");
-        jPanel4.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, 150, -1));
+        txtCantidadSalida.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        txtCantidadSalida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel4.add(txtCantidadSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 150, 60));
+
+        btnRegistrarSalida.setText("REGISTRAR SALIDA");
+        btnRegistrarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarSalidaActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnRegistrarSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 610, 170, -1));
+
+        txaConceptoSalida.setColumns(20);
+        txaConceptoSalida.setLineWrap(true);
+        txaConceptoSalida.setRows(5);
+        jScrollPane1.setViewportView(txaConceptoSalida);
+
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, 400, -1));
+
+        jButton1.setText("X");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 610, -1, -1));
 
         jTabbedPane1.addTab("SALIDAS", jPanel4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 770, 590));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1000, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("MOVIMIENTOS - INGRESOS - SALIDAS");
+        jLabel1.setText("MOVIMIENTOS : INGRESOS - SALIDAS");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyReleased
-        try {
-            String prod = txtProducto.getText();
-            new GestionAlmacenControl().buscarProductos(tblProducto, prod);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }//GEN-LAST:event_txtProductoKeyReleased
+    private void txtIngresoProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresoProductoKeyReleased
+        buscarProductoIngreso();
+    }//GEN-LAST:event_txtIngresoProductoKeyReleased
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int fila = tblProducto.getSelectedRow();
-        if (fila >= 0) {
-            if (!txtUnidades.getText().trim().isEmpty()) {
-                try {
-                    //Object[] datos = new Object[4];
-//                    Almacen a = new Almacen();
-//                    a.setNombre(cmbAlmacen.getSelectedItem().toString());
-//                    int idProd = Integer.parseInt(tblProducto.getValueAt(fila, 0).toString());                    
-                    String almacen = cmbAlmacen.getSelectedItem().toString();
-                    String producto = tblProducto.getValueAt(fila, 1).toString();
-                    int cantidad = Integer.parseInt(txtUnidades.getText());
-                    Object[] datos = {almacen, producto, cantidad};
-                    modelProductoAdd.addRow(datos);
-                    tblAgregadosParaMover.setModel(modelProductoAdd);
-//                    datos[0] = new GestionAlmacenControl().getIdAlmacen(a);
-//                    datos[1] = Integer.parseInt(tblProducto.getValueAt(fila, 0).toString());
-//                    datos[2] = txtUnidades.getText();
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+    private void btnAddIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIngresoActionPerformed
+        if (!txtIngresoProducto.getText().trim().isEmpty()) {
+            if (!txtCantidadIngreso.getText().trim().isEmpty()) {
+                if (!txaConceptoIngreso.getText().trim().isEmpty()) {
+                    int fila = tblProductoIngreso.getSelectedRow();
+                    String id = tblProductoIngreso.getValueAt(fila, 0).toString();
+                    String prod = tblProductoIngreso.getValueAt(fila, 1).toString();
+                    String cant = txtCantidadIngreso.getText();
+                    String concepto = txaConceptoIngreso.getText();
+                    String fecha = txtFechaEntrada.getText();
+
+                    String datos[] = new String[5];
+                    datos[0] = id;
+                    datos[1] = prod;
+                    datos[2] = cant;
+                    datos[3] = concepto;
+                    datos[4] = fecha;
+
+                    modelAddIngreso.addRow(datos);
+                    tblAddIgresos.setModel(modelAddIngreso);
+                } else {
+                    JOptionPane.showMessageDialog(getRootPane(), "INGRESE CONCEPTO DE INGRESO");
+                }
+            } else {
+                JOptionPane.showMessageDialog(getRootPane(), "INGRESE CANTIDAD");
+            }
+        } else {
+            JOptionPane.showMessageDialog(getRootPane(), "INGRESE UN PRODUCTO");
+        }
+
+    }//GEN-LAST:event_btnAddIngresoActionPerformed
+
+    private void btnRegistrarIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarIngresoActionPerformed
+        int numFilas = tblAddIgresos.getRowCount();
+        for (int i = 0; i < numFilas; i++) {
+            try {
+                Movimiento m = new Movimiento();
+                m.setProducto(tblAddIgresos.getValueAt(i, 1).toString());
+                m.setCantidad(Integer.parseInt(tblAddIgresos.getValueAt(i, 2).toString()));
+                m.setConcepto(tblAddIgresos.getValueAt(i, 3).toString());
+                m.setTipo("INGRESO");
+                m.setFecha(new ManejadorFechas().getFechaActualMySQL());
+                if (new MovimientoDAO().Registrar(m)) {
+                    System.out.println("ingreso registrado");
+                    //OBTENER EL STOCK ANTERIOR Y SUMARLE LAS UNIDADES ENTRANTES
+                    int idProducto = new Farma_inf().getIdProducto(tblAddIgresos.getValueAt(i, 1).toString());
+                    int f = new Farma_inf().setNewStock(idProducto, Integer.parseInt(tblAddIgresos.getValueAt(i, 2).toString()));
+                    if (f > 0) {
+                        System.out.println("se actualizo el stock del producto " + tblAddIgresos.getValueAt(i, 1).toString());
+                    }
+                } else {
+                    System.out.println("error");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarIngresoActionPerformed
+
+    private void btnRegistrarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSalidaActionPerformed
+        int numFilas = tblAddSalidas.getRowCount();
+        for (int i = 0; i < numFilas; i++) {
+            try {
+                Movimiento m = new Movimiento();
+                m.setProducto(tblAddSalidas.getValueAt(i, 1).toString());
+                m.setCantidad(Integer.parseInt(tblAddSalidas.getValueAt(i, 2).toString()));
+                m.setConcepto(tblAddSalidas.getValueAt(i, 3).toString());
+                m.setTipo("SALIDA");
+                m.setFecha(new ManejadorFechas().getFechaActualMySQL());
+                if (new MovimientoDAO().Registrar(m)) {
+                    System.out.println("SALIDA REGISTRADA");
+                    //ACTUALIZANDO EL STOCK
+                    int idProducto = new Farma_inf().getIdProducto(tblAddSalidas.getValueAt(i, 1).toString());
+                    int f = new Farma_inf().setRestarStock(idProducto, Integer.parseInt(tblAddSalidas.getValueAt(i, 2).toString()));
+                    if (f > 0) {
+                        System.out.println("se actualizo el stock del producto " + tblAddSalidas.getValueAt(i, 1).toString());
+                    }
+                } else {
+                    System.out.println("error");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarSalidaActionPerformed
+
+    private void txtProductoSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoSalidaKeyReleased
+        buscarProductoSalida();
+    }//GEN-LAST:event_txtProductoSalidaKeyReleased
+
+    private void btnAddSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSalidaActionPerformed
+
+        if (!txtProductoSalida.getText().trim().isEmpty()) {
+            if (!txtCantidadSalida.getText().trim().isEmpty()) {
+                if (!txaConceptoSalida.getText().trim().isEmpty()) {
+                    int fila = tblProductoSalida.getSelectedRow();
+                    String id = tblProductoSalida.getValueAt(fila, 0).toString();
+                    String prod = tblProductoSalida.getValueAt(fila, 1).toString();
+                    String cant = txtCantidadSalida.getText();
+                    String concepto = txaConceptoSalida.getText();
+                    String fecha = txtFechaSalida.getText();
+
+                    String datos[] = new String[5];
+                    datos[0] = id;
+                    datos[1] = prod;
+                    datos[2] = cant;
+                    datos[3] = concepto;
+                    datos[4] = fecha;
+
+                    modelAddSalida.addRow(datos);
+                    tblAddSalidas.setModel(modelAddSalida);
+                } else {
+                    JOptionPane.showMessageDialog(getRootPane(), "INGRESE UN CONCEPTO DE SALIDA");
                 }
             } else {
                 JOptionPane.showMessageDialog(getRootPane(), "INGRESE UNA CANTIDAD");
@@ -441,72 +492,94 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(getRootPane(), "SELECCIONE UN PRODUCTO");
         }
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnAddSalidaActionPerformed
 
-    private void btnMoverProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoverProductoActionPerformed
-        
-        int numFilas = tblAgregadosParaMover.getRowCount();
-        AlmacenProducto ap = new AlmacenProducto();
-        Almacen a = new Almacen();
-        String nomAlmacen;
-        AlmacenProductoDAO apdao = new AlmacenProductoDAO();
-        if (numFilas >= 0) {
-            for (int i = 0; i < numFilas; i++) {
-                try {
-                    nomAlmacen = tblAgregadosParaMover.getValueAt(i, 0).toString();
-                    a.setNombre(nomAlmacen);
-                    ap.setIdAlmacen(new GestionAlmacenControl().getIdAlmacen(a));
-                    ap.setIdProducto(new Farma_inf().getIdProducto(tblAgregadosParaMover.getValueAt(i, 1).toString()));
-                    ap.setCantidad(Integer.parseInt(tblAgregadosParaMover.getValueAt(i, 2).toString()));
-                    if (new GestionAlmacenControl().existeProductoEnAlmacen(ap)) {
-                        apdao.modificar(ap);
-                    } else {
-                        apdao.Registrar(ap);                        
-                    }
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
+    private void btnQuitarAddIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarAddIngresoActionPerformed
+        int fila = tblAddIgresos.getSelectedRow();
+        modelAddIngreso.removeRow(fila);
+    }//GEN-LAST:event_btnQuitarAddIngresoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int fila = tblAddSalidas.getSelectedRow();
+        modelAddSalida.removeRow(fila);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void buscarProductoIngreso() {
+        limpiarTablaProductoIngresos();
+        String art = txtIngresoProducto.getText();
+        String datos[] = new String[7];
+        String sql = "SELECT id_pro_medi, nom_pro_medi, concentracion_pro_medi, presentacion_pro_medi, provee_labo_pro_medi, stock_pro_medi,prec_venta FROM tproducto_medicamento WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = String.valueOf(rs.getInt("id_pro_medi"));
+                datos[1] = rs.getString("nom_pro_medi");
+                datos[2] = rs.getString("concentracion_pro_medi");
+                datos[3] = rs.getString("presentacion_pro_medi");
+                datos[4] = rs.getString("provee_labo_pro_medi");
+                datos[5] = String.valueOf(rs.getInt("stock_pro_medi"));
+                datos[6] = String.valueOf(rs.getDouble("prec_venta"));
+                modelProductoIngreso.addRow(datos);
             }
-        } else {
-            JOptionPane.showMessageDialog(getRootPane(), "AGREGUE POR LO MENOS UN MOVIMIENTO DE PRODUCTOS");
+            tblProductoIngreso.setModel(modelProductoIngreso);
+            //tbl_productos.setModel(new DefaultTableModel());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
-    }//GEN-LAST:event_btnMoverProductoActionPerformed
+    }
 
-    private void cbxTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTodoActionPerformed
-        int fila = tblProducto.getSelectedRow();
-        if (fila >= 0) {
-            if (cbxTodo.isSelected()) {
-                txtUnidades.setText(tblProducto.getValueAt(fila, 3).toString());
-            } else {
-                txtUnidades.setText("");
+    public void buscarProductoSalida() {
+        limpiarTablaProductoSalidas();
+        String art = txtProductoSalida.getText();
+        String datos[] = new String[7];
+        String sql = "SELECT id_pro_medi, nom_pro_medi, concentracion_pro_medi, presentacion_pro_medi, provee_labo_pro_medi, stock_pro_medi,prec_venta FROM tproducto_medicamento WHERE nom_pro_medi LIKE '" + art + "%' OR nom_pro_medi LIKE '%" + art + "'";
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = String.valueOf(rs.getInt("id_pro_medi"));
+                datos[1] = rs.getString("nom_pro_medi");
+                datos[2] = rs.getString("concentracion_pro_medi");
+                datos[3] = rs.getString("presentacion_pro_medi");
+                datos[4] = rs.getString("provee_labo_pro_medi");
+                datos[5] = String.valueOf(rs.getInt("stock_pro_medi"));
+                datos[6] = String.valueOf(rs.getDouble("prec_venta"));
+                modelProductoSalida.addRow(datos);
             }
-        } else {
-            JOptionPane.showMessageDialog(getRootPane(), "SELECCIONE UN PRODUCTO");
-            cbxTodo.setSelected(false);
+            tblProductoSalida.setModel(modelProductoSalida);
+            //tbl_productos.setModel(new DefaultTableModel());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
+    }
 
-    }//GEN-LAST:event_cbxTodoActionPerformed
+    public void limpiarTablaProductoIngresos() {
+        for (int i = 0; i < tblProductoIngreso.getRowCount(); i++) {
+            modelProductoIngreso.removeRow(i);
+            i -= 1;
+        }
+    }
 
+    public void limpiarTablaProductoSalidas() {
+        for (int i = 0; i < tblProductoSalida.getRowCount(); i++) {
+            modelProductoSalida.removeRow(i);
+            i -= 1;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnMoverProducto;
-    private javax.swing.JCheckBox cbxTodo;
-    private javax.swing.JComboBox cmbAlmacen;
+    private javax.swing.JButton btnAddIngreso;
+    private javax.swing.JButton btnAddSalida;
+    private javax.swing.JButton btnQuitarAddIngreso;
+    private javax.swing.JButton btnRegistrarIngreso;
+    private javax.swing.JButton btnRegistrarSalida;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -515,42 +588,30 @@ public class GestionAlmacen extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTable tblAgregadosParaMover;
-    private javax.swing.JTable tblProducto;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtFecha1;
-    private javax.swing.JTextField txtFecha2;
+    private javax.swing.JTable tblAddIgresos;
+    private javax.swing.JTable tblAddSalidas;
+    private javax.swing.JTable tblProductoIngreso;
+    private javax.swing.JTable tblProductoSalida;
+    private javax.swing.JTextArea txaConceptoIngreso;
+    private javax.swing.JTextArea txaConceptoSalida;
+    private javax.swing.JTextField txtCantidadIngreso;
+    private javax.swing.JTextField txtCantidadSalida;
+    private javax.swing.JTextField txtFechaEntrada;
+    private javax.swing.JTextField txtFechaSalida;
     private javax.swing.JTextField txtIngresoProducto;
-    private javax.swing.JTextField txtIngresoProducto1;
-    private javax.swing.JTextField txtNumMovimiento;
-    private javax.swing.JTextField txtProducto;
-    private javax.swing.JTextField txtUnidades;
+    private javax.swing.JTextField txtProductoSalida;
     // End of variables declaration//GEN-END:variables
 }

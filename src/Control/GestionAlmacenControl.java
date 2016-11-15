@@ -1,9 +1,7 @@
 package Control;
 
-import Vista.Almacen;
-import Vista.AlmacenDAO;
-import Vista.AlmacenProducto;
-import Vista.AlmacenProductoDAO;
+import Modelo.Almacen;
+import Modelo.AlmacenDAO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,19 +75,19 @@ public class GestionAlmacenControl {
     }
 
     //comprobar si existe el almacen en la tabla
-    public boolean existeProductoEnAlmacen(AlmacenProducto aprod) throws Exception {
-        try {
-            AlmacenProductoDAO apdao = new AlmacenProductoDAO();
-            for (AlmacenProducto ap : apdao.listar()) {
-                if (ap.getIdAlmacen()==aprod.getIdAlmacen() && ap.getIdProducto() == aprod.getIdProducto()) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return false;
-    }
+//    public boolean existeProductoEnAlmacen(AlmacenProducto aprod) throws Exception {
+//        try {
+//            AlmacenProductoDAO apdao = new AlmacenProductoDAO();
+//            for (AlmacenProducto ap : apdao.listar()) {
+//                if (ap.getIdAlmacen()==aprod.getIdAlmacen() && ap.getIdProducto() == aprod.getIdProducto()) {
+//                    return true;
+//                }
+//            }
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//        return false;
+//    }
 
 //    private void restarStock() throws Exception {
 //        int numFilas = tbl.getRowCount();

@@ -1,7 +1,7 @@
 package Control;
 
-import Vista.Almacen;
-import Vista.AlmacenDAO;
+import Modelo.Almacen;
+import Modelo.AlmacenDAO;
 import Vista.Almacenes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

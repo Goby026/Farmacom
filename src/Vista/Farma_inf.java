@@ -98,7 +98,26 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return newStock;
     }
-    
+
+    public int setRestarStock(int idprod, int cantidad) {
+        int Stock = getStock(idprod);
+        int newStock = 0;
+        if (Stock >= cantidad) {
+            newStock = Stock - cantidad;
+            String sql = "UPDATE `tproducto_medicamento` SET `stock_pro_medi`= " + newStock + " WHERE `id_pro_medi` = " + idprod + " ";
+            try {
+                Statement st = con.createStatement();
+                int rs = st.executeUpdate(sql);
+                return newStock;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("La cantidad excede al stock disponible");
+        }
+        return newStock;
+    }
+
     public double updatePrecio(int idprod, double newPrecio) {
         String sql = "UPDATE `tproducto_medicamento` SET `prec_venta`= " + newPrecio + " WHERE `id_pro_medi` = " + idprod + " ";
         try {
@@ -170,10 +189,10 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return nombre;
     }
-    
+
     public double getPrecioProducto(String nombre, int codProd) {
         double precio = 0;
-        String sql = "SELECT prec_venta FROM `tproducto_medicamento` WHERE `nom_pro_medi`= '" + nombre + "' AND id_pro_medi = "+codProd+"";
+        String sql = "SELECT prec_venta FROM `tproducto_medicamento` WHERE `nom_pro_medi`= '" + nombre + "' AND id_pro_medi = " + codProd + "";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -185,13 +204,12 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return precio;
     }
-    
 
     public String getPresentacionProducto(int id) {
         String presentacion = null;
-        String sql = "SELECT presentacion_pro_medi FROM tproducto_medicamento WHERE id_pro_medi = "+id;
+        String sql = "SELECT presentacion_pro_medi FROM tproducto_medicamento WHERE id_pro_medi = " + id;
         try {
-            Statement st =  con.createStatement();
+            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 presentacion = rs.getString("presentacion_pro_medi");
@@ -201,12 +219,12 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return presentacion;
     }
-    
+
     public String getLoteProducto(int id) {
         String lote = null;
-        String sql = "SELECT lote FROM tproducto_medicamento WHERE id_pro_medi = "+id;
+        String sql = "SELECT lote FROM tproducto_medicamento WHERE id_pro_medi = " + id;
         try {
-            Statement st =  con.createStatement();
+            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 lote = rs.getString("lote");
@@ -216,12 +234,12 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return lote;
     }
-    
+
     public String getFechaVencimientoProducto(int id) {
         String fecVencimiento = null;
-        String sql = "SELECT fecha_venc_pro_medi FROM tproducto_medicamento WHERE id_pro_medi = "+id;
+        String sql = "SELECT fecha_venc_pro_medi FROM tproducto_medicamento WHERE id_pro_medi = " + id;
         try {
-            Statement st =  con.createStatement();
+            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 fecVencimiento = rs.getString("fecha_venc_pro_medi");
@@ -246,30 +264,30 @@ public class Farma_inf extends javax.swing.JFrame {
         }
         return id;
     }
-    
+
     public int getIdProveedor(String nombre) {
         int id = 0;
-        String sql = "SELECT `id_provee` FROM `tproveedor` WHERE `nom_provee` = '"+nombre+"'";
+        String sql = "SELECT `id_provee` FROM `tproveedor` WHERE `nom_provee` = '" + nombre + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                id= rs.getInt("id_provee");
+                id = rs.getInt("id_provee");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return id;
     }
-    
+
     public String getNomProveedor(String nomProd) {
         String nombre = null;
-        String sql = "SELECT provee_labo_pro_medi FROM tproducto_medicamento WHERE nom_pro_medi = '"+nomProd+"'";
+        String sql = "SELECT provee_labo_pro_medi FROM tproducto_medicamento WHERE nom_pro_medi = '" + nomProd + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                nombre= rs.getString("provee_labo_pro_medi");
+                nombre = rs.getString("provee_labo_pro_medi");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -279,35 +297,35 @@ public class Farma_inf extends javax.swing.JFrame {
 
     public int getIdTrabajador(String nombre) {
         int id = 0;
-        String sql = "SELECT `id_usu` FROM tusuario WHERE `nom_usu` = '"+nombre+"'";
+        String sql = "SELECT `id_usu` FROM tusuario WHERE `nom_usu` = '" + nombre + "'";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                id= rs.getInt("id_usu");
+                id = rs.getInt("id_usu");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return id;
     }
-    
-    public int getFraccion(int idProd){
-        int fraccion =0;
+
+    public int getFraccion(int idProd) {
+        int fraccion = 0;
         try {
-            String sql = "SELECT `fraccion_pro_medi` FROM tproducto_medicamento WHERE `id_pro_medi` = '"+idProd+"'";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            if (rs.next()) {
-                fraccion= rs.getInt("fraccion_pro_medi");
+            String sql = "SELECT `fraccion_pro_medi` FROM tproducto_medicamento WHERE `id_pro_medi` = '" + idProd + "'";
+            try {
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    fraccion = rs.getInt("fraccion_pro_medi");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
         } catch (Exception e) {
         }
         return fraccion;
     }
-    
+
 }

@@ -347,7 +347,6 @@ public final class Ventas extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txt_vuelto = new javax.swing.JTextField();
         btn_quitar = new javax.swing.JButton();
-        lbl_fondo = new javax.swing.JLabel();
         lbl_logo = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -355,6 +354,7 @@ public final class Ventas extends javax.swing.JFrame {
         lbl_producto15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
+        customPanel1 = new Vista.CustomPanel();
 
         frm_buscar.setTitle("BUSCAR PRODUCTO");
         frm_buscar.setBounds(new java.awt.Rectangle(100, 100, 1020, 555));
@@ -794,7 +794,7 @@ public final class Ventas extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 1130, -1));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel4.setForeground(new java.awt.Color(204, 0, 0));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/dollar.png"))); // NOI18N
         jLabel4.setText("SUB-TOTAL");
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
@@ -950,9 +950,6 @@ public final class Ventas extends javax.swing.JFrame {
         });
         getContentPane().add(btn_quitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, -1, 25));
 
-        lbl_fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/doctor.jpg"))); // NOI18N
-        getContentPane().add(lbl_fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 320));
-
         lbl_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Banner.png"))); // NOI18N
         lbl_logo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -999,6 +996,21 @@ public final class Ventas extends javax.swing.JFrame {
         txt_codigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_codigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 255), 1, true));
         getContentPane().add(txt_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 80, -1));
+
+        customPanel1.setOpaque(false);
+
+        javax.swing.GroupLayout customPanel1Layout = new javax.swing.GroupLayout(customPanel1);
+        customPanel1.setLayout(customPanel1Layout);
+        customPanel1Layout.setHorizontalGroup(
+            customPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        customPanel1Layout.setVerticalGroup(
+            customPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(customPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 400, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1588,6 +1600,7 @@ public final class Ventas extends javax.swing.JFrame {
     public javax.swing.JButton btn_salir;
     private javax.swing.JCheckBox cmbBlister;
     private javax.swing.JCheckBox cmbDescuento;
+    private Vista.CustomPanel customPanel1;
     private javax.swing.JDialog frm_buscar;
     public javax.swing.JDialog frm_cliente;
     private javax.swing.JButton jButton1;
@@ -1616,7 +1629,6 @@ public final class Ventas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lbl_fondo;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_logo2;
     private javax.swing.JLabel lbl_pie;

@@ -1,4 +1,4 @@
-package Vista;
+package Modelo;
 
 public class Almacen {
     int id;

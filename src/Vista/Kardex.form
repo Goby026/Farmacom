@@ -459,11 +459,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SALIDAS - VENTAS"/>
+            <Property name="text" type="java.lang.String" value="VENTAS"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="0" width="-1" height="-1"/>
+              <AbsoluteConstraints x="350" y="0" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -533,11 +533,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ENTRADAS - COMPRAS"/>
+            <Property name="text" type="java.lang.String" value="COMPRAS"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="0" width="-1" height="-1"/>
+              <AbsoluteConstraints x="330" y="0" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

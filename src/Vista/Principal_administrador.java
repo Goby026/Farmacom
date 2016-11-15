@@ -10,6 +10,7 @@ import LOGIN.Login;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import Vista.*;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -28,6 +29,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         //setUndecorated(true);
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.WHITE);
         setTitle("ADMINISTRACION");
         setIconImage(new ImageIcon(getClass().getResource("/IMG/icoono.jpg")).getImage());
         ((JPanel)getContentPane()).setOpaque(true);
@@ -44,8 +46,6 @@ public class Principal_administrador extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
-        btn_usuarios = new javax.swing.JButton();
         btn_proveedores = new javax.swing.JButton();
         btn_tiendas = new javax.swing.JButton();
         btn_gastos = new javax.swing.JButton();
@@ -62,6 +62,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         m_sistema = new javax.swing.JMenu();
+        jMenuItem22 = new javax.swing.JMenuItem();
         m_config = new javax.swing.JMenuItem();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -78,7 +79,6 @@ public class Principal_administrador extends javax.swing.JFrame {
         m_stock_productos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         m_reportes = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -116,134 +116,127 @@ public class Principal_administrador extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1920, Short.MAX_VALUE)
+            .addGap(0, 2060, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 880, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
         );
 
-        getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 1920, 880));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1454973695_sign-up.png"))); // NOI18N
-        jButton1.setText("ASISTENCIA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 130, 70));
-
-        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/folder_who.png"))); // NOI18N
-        btn_usuarios.setText("USUARIOS");
-        btn_usuarios.setEnabled(false);
-        btn_usuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_usuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuariosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 130, 70));
+        getContentPane().add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 2060, 850));
 
         btn_proveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295253_provider.png"))); // NOI18N
         btn_proveedores.setText("PROVEEDORES");
-        btn_proveedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_proveedores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_proveedores.setContentAreaFilled(false);
+        btn_proveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_proveedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_proveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_proveedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 130, 70));
+        getContentPane().add(btn_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 140, 35));
 
         btn_tiendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296051_09.png"))); // NOI18N
         btn_tiendas.setText("LABORATORIOS");
-        btn_tiendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_tiendas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_tiendas.setContentAreaFilled(false);
+        btn_tiendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_tiendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_tiendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tiendasActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_tiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 130, 70));
+        getContentPane().add(btn_tiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 140, 35));
 
         btn_gastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453296836_Cash_register.png"))); // NOI18N
         btn_gastos.setText("GASTOS");
-        btn_gastos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_gastos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_gastos.setContentAreaFilled(false);
+        btn_gastos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_gastos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_gastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_gastosActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_gastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 130, 70));
+        getContentPane().add(btn_gastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 140, 35));
 
         btn_stock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297006_20.png"))); // NOI18N
         btn_stock.setText("STOCK");
-        btn_stock.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_stock.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_stock.setContentAreaFilled(false);
+        btn_stock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_stock.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_stock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_stockActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 130, 70));
+        getContentPane().add(btn_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 140, 35));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1461702483_sales_bag_shopping_bargain_retail.png"))); // NOI18N
         jButton2.setText("VENTAS");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 130, 70));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 140, 35));
 
         btn_compras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453297151_empty-shopping-cart.png"))); // NOI18N
         btn_compras.setText("COMPRAS");
-        btn_compras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_compras.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_compras.setContentAreaFilled(false);
+        btn_compras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_compras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_compras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_comprasActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_compras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 130, 70));
+        getContentPane().add(btn_compras, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 40, 140, 35));
 
         btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453295875_packing.png"))); // NOI18N
         btn_productos.setText("PRODUCTOS");
-        btn_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_productos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_productos.setContentAreaFilled(false);
+        btn_productos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_productosActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 130, 70));
+        getContentPane().add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 140, 35));
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes.png"))); // NOI18N
         btn_clientes.setText("  CLIENTES");
         btn_clientes.setToolTipText("");
-        btn_clientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btn_clientes.setBorderPainted(false);
-        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_clientes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 153), 1, true));
+        btn_clientes.setContentAreaFilled(false);
+        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_clientes.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clientesActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 130, 70));
+        getContentPane().add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 40, 140, 35));
         btn_clientes.getAccessibleContext().setAccessibleName("CLIENTES");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_id.setText("ID");
-        jPanel1.add(lbl_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
+        jPanel1.add(lbl_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
         lbl_user.setText("USUARIO");
         jPanel1.add(lbl_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
@@ -254,9 +247,9 @@ public class Principal_administrador extends javax.swing.JFrame {
 
         txt_id.setEditable(false);
         txt_id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel1.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 130, -1));
+        jPanel1.add(txt_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 130, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 5, 420, 40));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 380, 40));
 
         jButton3.setText("ProductoAlmacen");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -264,13 +257,18 @@ public class Principal_administrador extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 10, -1, -1));
+
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         m_sistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Monitor-icon.png"))); // NOI18N
         m_sistema.setText("SISTEMA");
-        m_sistema.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_sistema.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        m_config.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jMenuItem22.setText("ASISTENCIAS");
+        m_sistema.add(jMenuItem22);
+
+        m_config.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_config.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453101097_Wrench.png"))); // NOI18N
         m_config.setText("CONFIGURACIÓN");
         m_config.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +296,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_sistema.add(jMenuItem17);
 
-        m_cerar_sesion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_cerar_sesion.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_cerar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logout.png"))); // NOI18N
         m_cerar_sesion.setText("CERRAR SESIÓN");
         m_cerar_sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +306,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_sistema.add(m_cerar_sesion);
 
-        m_salir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_salir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/exit.png"))); // NOI18N
         m_salir.setText("SALIR");
         m_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -322,9 +320,9 @@ public class Principal_administrador extends javax.swing.JFrame {
 
         m_registros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453328127_accessories-text-editor.png"))); // NOI18N
         m_registros.setText("REGISTROS");
-        m_registros.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_registros.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        m_clientes.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_clientes.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453103738_customers.png"))); // NOI18N
         m_clientes.setText("REGISTRAR CLIENTES");
         m_clientes.addActionListener(new java.awt.event.ActionListener() {
@@ -334,8 +332,9 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_clientes);
 
+        m_empleados.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_empleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453103927_customers.png"))); // NOI18N
-        m_empleados.setText("REGISTRAR EMPLEADOS");
+        m_empleados.setText("REGISTRAR USUARIOS");
         m_empleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_empleadosActionPerformed(evt);
@@ -343,7 +342,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_empleados);
 
-        m_proveedor.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_proveedor.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_proveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453104151_provider.png"))); // NOI18N
         m_proveedor.setText("REGISTRAR PROVEEDOR");
         m_proveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +352,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_proveedor);
 
-        m_contactos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_contactos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_contactos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/icon_m.png"))); // NOI18N
         m_contactos.setText("REGISTRAR PAGOS");
         m_contactos.addActionListener(new java.awt.event.ActionListener() {
@@ -363,7 +362,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_contactos);
 
-        m_productos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_productos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453242429_chemistry_reaction_product.png"))); // NOI18N
         m_productos.setText("REGISTRAR PRODUCTOS");
         m_productos.addActionListener(new java.awt.event.ActionListener() {
@@ -373,7 +372,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_productos);
 
-        m_gastos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_gastos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_gastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453243072_cash_register.png"))); // NOI18N
         m_gastos.setText("REGISTRAR GASTOS");
         m_gastos.addActionListener(new java.awt.event.ActionListener() {
@@ -383,7 +382,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_gastos);
 
-        m_compras.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_compras.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_compras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453244507_shopping-edit.png"))); // NOI18N
         m_compras.setText("REGISTRAR COMPRAS");
         m_compras.addActionListener(new java.awt.event.ActionListener() {
@@ -393,7 +392,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_compras);
 
-        m_stock_productos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_stock_productos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         m_stock_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453244908_20.png"))); // NOI18N
         m_stock_productos.setText("VER STOCK PRODUCTOS");
         m_stock_productos.addActionListener(new java.awt.event.ActionListener() {
@@ -403,6 +402,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(m_stock_productos);
 
+        jMenuItem1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453287637_clipboard-charts.png"))); // NOI18N
         jMenuItem1.setText("GESTIÓN DE VENTAS");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -412,6 +412,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(jMenuItem1);
 
+        jMenuItem18.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453286780_Sales-by-Payment-Method-rep.png"))); // NOI18N
         jMenuItem18.setText("GESTIÓN DE COMPRAS");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
@@ -421,14 +422,7 @@ public class Principal_administrador extends javax.swing.JFrame {
         });
         m_registros.add(jMenuItem18);
 
-        jMenuItem22.setText("REGISTRAR ALMACEN");
-        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem22ActionPerformed(evt);
-            }
-        });
-        m_registros.add(jMenuItem22);
-
+        jMenuItem24.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jMenuItem24.setText("MOVIMIENTOS ALMACEN");
         jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +435,7 @@ public class Principal_administrador extends javax.swing.JFrame {
 
         m_reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453328195_gnome-mime-application-vnd.lotus-1-2-3.png"))); // NOI18N
         m_reportes.setText("REPORTES");
-        m_reportes.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        m_reportes.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/1453103738_customers.png"))); // NOI18N
         jMenu4.setText("CLIENTES");
@@ -729,10 +723,6 @@ public class Principal_administrador extends javax.swing.JFrame {
       new Compras().setVisible(true);
     }//GEN-LAST:event_m_comprasActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       new Asistencias().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void m_contactosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_contactosActionPerformed
         new Pagos().setVisible(true);
     }//GEN-LAST:event_m_contactosActionPerformed
@@ -861,24 +851,9 @@ public class Principal_administrador extends javax.swing.JFrame {
         rpa.setVisible(true);
     }//GEN-LAST:event_btn_productosActionPerformed
 
-    private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        Reg_usuario ru = new Reg_usuario();
-        ru.setVisible(true);
-    }//GEN-LAST:event_btn_usuariosActionPerformed
-
     private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
         new ReporteDeCompras().setVisible(true);
     }//GEN-LAST:event_jMenuItem23ActionPerformed
-
-    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
-        try {
-            Almacenes a = new Almacenes();
-            escritorio.add(a);
-            a.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(Principal_administrador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
         try {
@@ -940,10 +915,8 @@ public class Principal_administrador extends javax.swing.JFrame {
     private javax.swing.JButton btn_proveedores;
     private javax.swing.JButton btn_stock;
     private javax.swing.JButton btn_tiendas;
-    private javax.swing.JButton btn_usuarios;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem item_enero;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;

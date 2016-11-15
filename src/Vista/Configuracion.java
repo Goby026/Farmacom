@@ -26,7 +26,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     Connection con = new Conexion().conectar();
     int posx, posy;
-    
+
     public Configuracion() {
         setUndecorated(true);
         setAlwaysOnTop(true);
@@ -34,14 +34,13 @@ public final class Configuracion extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         btn_actualizar_empresa.setEnabled(false);
-        lbl_fecha.setText(""+new Fechas().fechaCadena());
+        lbl_fecha.setText("" + new Fechas().fechaCadena());
         int mm = getMaxId();
         cargar(mm);
     }
-    
-    
-    public void cargar(int id){
-        String sql = "SELECT `nom_empresa`, `dir_empresa`, `telf_empresa`, `ruc_empresa`, `nom_responsable_empresa`, `igv`, `cambio`, `anuncio`, `ingreso`, `salida`, `id_usu`,`salario` FROM `tconfiguracion` WHERE id_config = "+id+" ";
+
+    public void cargar(int id) {
+        String sql = "SELECT `nom_empresa`, `dir_empresa`, `telf_empresa`, `ruc_empresa`, `nom_responsable_empresa`, `igv`, `cambio`, `anuncio`, `ingreso`, `salida`, `id_usu`,`salario` FROM `tconfiguracion` WHERE id_config = " + id + " ";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -58,25 +57,25 @@ public final class Configuracion extends javax.swing.JFrame {
                 datos[8] = rs.getString("ingreso");
                 datos[9] = rs.getString("salida");
                 datos[10] = rs.getString("salario");
-                
-                 txt_nom.setText(datos[0]);
-                 txt_direccion.setText(datos[1]);
-                 txt_telefono.setText(datos[2]);
-                 txt_ruc.setText(datos[3]);
-                 txt_responsable.setText(datos[4]);
-                 txt_cambio.setText(datos[5]);
-                 txt_igv.setText(datos[6]);
-                 txa_anuncios.setText(datos[7]);
-                 txt_entrada.setText(datos[8]);
-                 txt_salida.setText(datos[9]);
-                 txt_pago_minimo.setText(datos[10]);
+
+                txt_nom.setText(datos[0]);
+                txt_direccion.setText(datos[1]);
+                txt_telefono.setText(datos[2]);
+                txt_ruc.setText(datos[3]);
+                txt_responsable.setText(datos[4]);
+                txt_cambio.setText(datos[5]);
+                txt_igv.setText(datos[6]);
+                txa_anuncios.setText(datos[7]);
+                txt_entrada.setText(datos[8]);
+                txt_salida.setText(datos[9]);
+                txt_pago_minimo.setText(datos[10]);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
     }
-    
-    public int getMaxId(){
+
+    public int getMaxId() {
         int id = -1;
         String sql = "SELECT MAX(`id_config`) FROM `tconfiguracion`";
         try {
@@ -90,9 +89,8 @@ public final class Configuracion extends javax.swing.JFrame {
         }
         return id;
     }
-    
-    
-    public void bloquear(){
+
+    public void bloquear() {
         btn_actualizar_empresa.setEnabled(false);
         txt_nom.setEnabled(false);
         txt_direccion.setEnabled(false);
@@ -100,8 +98,8 @@ public final class Configuracion extends javax.swing.JFrame {
         txt_ruc.setEnabled(false);
         txt_responsable.setEnabled(false);
     }
-    
-    public void desbloquear(){
+
+    public void desbloquear() {
         btn_actualizar_empresa.setEnabled(true);
         txt_nom.setEnabled(true);
         txt_direccion.setEnabled(true);
@@ -110,8 +108,6 @@ public final class Configuracion extends javax.swing.JFrame {
         txt_responsable.setEnabled(true);
         txt_nom.requestFocus();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -563,78 +559,90 @@ public final class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void chx_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chx_modificarActionPerformed
-        
+
         if (chx_modificar.isSelected()) {
             desbloquear();
         } else {
             bloquear();
         }
-        
-        
+
+
     }//GEN-LAST:event_chx_modificarActionPerformed
 
     private void btn_actualizar_empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_empresaActionPerformed
-        String nombre, dir, responsable,sql;
-        int telf, ruc;        
-        
+        String nombre, dir, responsable, sql;
+        int telf;
+        String ruc;
+
         nombre = txt_nom.getText();
         dir = txt_direccion.getText();
         telf = Integer.parseInt(txt_telefono.getText());
-        ruc = Integer.parseInt(txt_ruc.getText());
+        ruc = txt_ruc.getText();
         responsable = txt_responsable.getText();
-        
-        sql = "UPDATE `tconfiguracion` SET `nom_empresa`= '"+nombre+"' ,`dir_empresa`= '"+dir+"' ,`telf_empresa`= "+telf+" ,`ruc_empresa`= "+ruc+" ,`nom_responsable_empresa`= '"+responsable+"' ";
         try {
+            String query = "SELECT * FROM tconfiguracion";
             Statement st = con.createStatement();
-            int res = st.executeUpdate(sql);
-            if (res>0) {
-                JOptionPane.showMessageDialog(getRootPane(), "Datos actualizados");
-                bloquear();
+            ResultSet rs = st.executeQuery(query);
+            if (rs.next()) {
+                sql = "UPDATE `tconfiguracion` SET `nom_empresa`= '" + nombre + "' ,`dir_empresa`= '" + dir + "' ,`telf_empresa`= " + telf + " ,`ruc_empresa`= " + ruc + " ,`nom_responsable_empresa`= '" + responsable + "' ";
+                int res = st.executeUpdate(sql);
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(getRootPane(), "INFORMACION ACTUALIZADA");
+                    bloquear();
+                }
+            } else {
+                sql = "INSERT INTO `tconfiguracion`(nom_empresa, dir_empresa, telf_empresa, ruc_empresa, nom_responsable_empresa,igv,cambio,anuncio,ingreso,salida,salario,id_usu) VALUES('" + nombre + "' ,'" + dir + "' ," + telf + " ," + ruc + " ,'" + responsable + "',0.18,3.4,'SIN ANUNCIO','08:00','01:00',850,2)";
+                int res = st.executeUpdate(sql);
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(getRootPane(), "DATOS REGISTRADOS");
+                    bloquear();
+                }
             }
+
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());        
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
     }//GEN-LAST:event_btn_actualizar_empresaActionPerformed
 
     private void btn_actualizar_cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_cambioActionPerformed
         double cambio = Double.parseDouble(txt_cambio.getText());
-        String sql = "UPDATE `tconfiguracion` SET `cambio`= "+cambio+" ";
+        String sql = "UPDATE `tconfiguracion` SET `cambio`= " + cambio + " ";
         try {
             Statement st = con.createStatement();
             int res = st.executeUpdate(sql);
-            if (res>0) {
+            if (res > 0) {
                 JOptionPane.showMessageDialog(getRootPane(), "Cambio del dia actualizado");
             }
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());        
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
     }//GEN-LAST:event_btn_actualizar_cambioActionPerformed
 
     private void btn_actualizar_igvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_igvActionPerformed
         double igv = Double.parseDouble(txt_igv.getText());
-        String sql = "UPDATE `tconfiguracion` SET `igv`= "+igv+" ";
+        String sql = "UPDATE `tconfiguracion` SET `igv`= " + igv + " ";
         try {
             Statement st = con.createStatement();
             int res = st.executeUpdate(sql);
-            if (res>0) {
+            if (res > 0) {
                 JOptionPane.showMessageDialog(getRootPane(), "Igv actualizado");
             }
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());        
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
     }//GEN-LAST:event_btn_actualizar_igvActionPerformed
 
     private void btn_actualizar_anuncioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_anuncioActionPerformed
         String msg = txa_anuncios.getText();
-        String sql = "UPDATE `tconfiguracion` SET `anuncio`= '"+msg+"' ";
+        String sql = "UPDATE `tconfiguracion` SET `anuncio`= '" + msg + "' ";
         try {
             Statement st = con.createStatement();
             int res = st.executeUpdate(sql);
-            if (res>0) {
+            if (res > 0) {
                 JOptionPane.showMessageDialog(getRootPane(), "Anuncio actualizado");
             }
         } catch (SQLException | HeadlessException e) {
-            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());        
+            JOptionPane.showMessageDialog(getRootPane(), e.getMessage());
         }
     }//GEN-LAST:event_btn_actualizar_anuncioActionPerformed
 
@@ -670,7 +678,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void jLabel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseDragged
         Point point = MouseInfo.getPointerInfo().getLocation();
-        this.setLocation(point.x-posx, point.y-posy);
+        this.setLocation(point.x - posx, point.y - posy);
     }//GEN-LAST:event_jLabel1MouseDragged
 
     private void btn_guardar_pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar_pagosActionPerformed
@@ -694,7 +702,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_cambioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cambioKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_cambio.requestFocus();
@@ -703,12 +711,12 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_igvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_igvKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_igv.requestFocus();
         }
-        
+
 //        Validar solo letras
 //        int tecla = (int)evt.getKeyChar();
 //        if(tecla>47 && tecla<58){
@@ -723,7 +731,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_entradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_entradaKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_entrada.requestFocus();
@@ -732,7 +740,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_salidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_salidaKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_salida.requestFocus();
@@ -741,7 +749,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_pago_minimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pago_minimoKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_pago_minimo.requestFocus();
@@ -750,7 +758,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telefonoKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_telefono.requestFocus();
@@ -759,7 +767,7 @@ public final class Configuracion extends javax.swing.JFrame {
 
     private void txt_rucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_rucKeyTyped
         int tecla = (int) evt.getKeyChar();
-        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123)  {
+        if (tecla > 64 && tecla < 91 || tecla > 96 && tecla < 123) {
             evt.setKeyChar((char) KeyEvent.VK_CLEAR);
             JOptionPane.showMessageDialog(getRootPane(), "INGRESE SOLO NUMEROS");
             txt_ruc.requestFocus();
