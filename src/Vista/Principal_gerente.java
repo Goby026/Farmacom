@@ -745,7 +745,11 @@ public class Principal_gerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        new Flujo_caja().setVisible(true);
+        try {
+            new Flujo_caja().setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void item_eneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_eneroActionPerformed

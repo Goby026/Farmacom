@@ -8,6 +8,8 @@ package Vista;
 import Vista.*;
 import Vista.Ventas;
 import java.awt.GridBagConstraints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -301,7 +303,11 @@ public class Principal_vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       new Flujo_caja().setVisible(true);
+        try {
+            new Flujo_caja().setVisible(true);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
