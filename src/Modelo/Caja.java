@@ -8,7 +8,7 @@ package Modelo;
 public class Caja {
     int idCaja;
     double montoApertura, montoCierre;
-    String fecha, hora, observacion;
+    String fecha, hora, observacion, observacion_cierre;
 
     public Caja() {
     }

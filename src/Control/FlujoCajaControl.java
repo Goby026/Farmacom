@@ -32,13 +32,13 @@ public class FlujoCajaControl {
             for (Caja c : cdao.listar()) {
                 if (c.getFecha().equals(fecha)) {
                     if (c.getMontoCierre()==0) {
-                        return "CERRADA";
+                        return "ABIERTA";
                     }
                 }
             }
         } catch (Exception e) {
             throw e;
         }
-        return "ABIERTA";
+        return "CERRADA";
     }
 }
